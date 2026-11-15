@@ -522,7 +522,7 @@ A1.addLessons([
       { type: "mcq", q: "In <b>parler</b>, the final -er sounds…", options: ["ay (the r is silent)", "air (with the r)", "er, as in 'her'"], answer: 0, explain: "[[parler|par-LAY]]: -er verbs end in <i>ay</i>." },
       { type: "fill", q: "Je parle, il parle, ils ___ : they all sound the same! (parler)", answer: ["parlent"], explain: "The -ent of [[ils parlent]] is silent." },
       { type: "order", words: ["Il", "fait", "beaucoup", "de", "sport."], en: "He does a lot of sport." },
-      { type: "speak", fr: "Bonjour monsieur, un petit café, s'il vous plaît.", en: "Hello sir, a small coffee, please." }
+      { type: "speak", fr: "Bonjour, monsieur. Un petit café, s'il vous plaît.", en: "Hello sir, a small coffee, please." }
     ]
   }
 ,

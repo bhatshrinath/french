@@ -476,5 +476,257 @@ A1.addLessons([
       { type: "fill", q: "Les mangues sont moins ___ en Inde. (cher)", answer: ["chères"], explain: "[[les mangues]] is feminine plural → [[chères]]." },
       { type: "speak", fr: "Pour moi, le chai est meilleur que le café.", en: "For me, chai is better than coffee." }
     ]
+  },
+  {
+    id: "g-imparfait",
+    cat: "grammar",
+    title: "The imparfait (intro): describing the past",
+    minutes: 20,
+    summary: "Describe how things were (C'était super ! Il faisait beau.) and what you used to do (Je jouais au cricket.), and know when to use the imparfait instead of the passé composé.",
+    sections: [
+      { h: "Why it matters", p: "The passé composé tells <b>what happened</b>: [[J'ai mangé.]] The [[imparfait|ehn-par-FEH]] paints <b>how things were</b>: the weather, the place, your feelings, and what you <b>used to</b> do. English often says <i>was …-ing</i> or <i>used to</i>: [[Il pleuvait.]] = It was raining. [[Je jouais au cricket.]] = I used to play cricket." },
+      { h: "How to make it", p: "One recipe for almost every verb: take the [[nous]] form of the present, remove <b>-ons</b>, and add the endings <b>-ais, -ais, -ait, -ions, -iez, -aient</b>. [[nous parlons]] → <b>parl-</b> → [[je parlais]]. Good news: four of the six forms sound exactly the same." },
+      { conj: { verb: "parler (imparfait)", en: "to speak — I was speaking / I used to speak", rows: [
+        ["je parlais", "I was speaking / I used to speak", "zhuh par-LEH"],
+        ["tu parlais", "you were speaking", "tü par-LEH"],
+        ["il / elle / on parlait", "he / she was speaking (on = we)", "eel / ehl / ohn par-LEH"],
+        ["nous parlions", "we were speaking", "noo par-LYOHN"],
+        ["vous parliez", "you were speaking", "voo par-LYAY"],
+        ["ils / elles parlaient", "they were speaking", "eel / ehl par-LEH"]
+      ] } },
+      { h: "Same recipe for other verbs", table: { head: ["Present (nous)", "Stem", "Imparfait (je)"], rows: [
+        ["[[nous finissons]]", "<b>finiss-</b>", "[[je finissais]]"],
+        ["[[nous faisons]]", "<b>fais-</b>", "[[je faisais]]"],
+        ["[[nous avons]]", "<b>av-</b>", "[[j'avais]]"],
+        ["[[nous allons]]", "<b>all-</b>", "[[j'allais]]"],
+        ["[[nous prenons]]", "<b>pren-</b>", "[[je prenais]]"],
+        ["[[nous mangeons]]", "<b>mange-</b> (keeps the e)", "[[je mangeais]]"],
+        ["[[nous sommes]] — <b>être</b> is the only exception", "<b>ét-</b>", "[[j'étais]]"]
+      ] } },
+      { h: "The six forms you'll use every day", table: { head: ["French", "English", "Example"], rows: [
+        ["[[c'était|say-TEH]]", "it was", "[[C'était super !]] — It was great!"],
+        ["[[il y avait|eel yah-VEH]]", "there was / there were", "[[Il y avait beaucoup de monde.]] — There were lots of people."],
+        ["[[il faisait|eel fuh-ZEH]]", "the weather was…", "[[Il faisait beau.]] — The weather was nice."],
+        ["[[il pleuvait|eel pluh-VEH]]", "it was raining", "[[Il pleuvait quand le train est arrivé.]] — It was raining when the train arrived."],
+        ["[[j'avais|zhah-VEH]]", "I had / I was (age)", "[[J'avais dix ans.]] — I was ten."],
+        ["[[j'étais|zhay-TEH]]", "I was", "[[J'étais fatigué / fatiguée.]] — I was tired."]
+      ] } },
+      { h: "Past habits: used to…", examples: [
+        { fr: "Quand j'étais petit / petite, je jouais au cricket tous les jours.", en: "When I was little, I used to play cricket every day." },
+        { fr: "Le dimanche, nous allions chez mes grands-parents.", en: "On Sundays, we used to go to my grandparents' place." },
+        { fr: "Ma grand-mère faisait le meilleur chai du monde.", en: "My grandmother used to make the best chai in the world." },
+        { fr: "Avant, j'habitais à Delhi.", en: "Before, I used to live in Delhi." }
+      ] },
+      { h: "Imparfait or passé composé?", table: { head: ["Imparfait = the scene", "Passé composé = the event"], rows: [
+        ["[[Il pleuvait…]] (it was raining…)", "[[… quand je suis arrivé / arrivée.]] (…when I arrived.)"],
+        ["[[Je regardais la télé…]] (I was watching TV…)", "[[… quand le téléphone a sonné.]] (…when the phone rang.)"],
+        ["[[C'était un samedi. Il faisait chaud.]] (It was a Saturday. It was hot.)", "[[Nous sommes allés à la plage.]] (We went to the beach.)"]
+      ] } },
+      { tip: "One simple rule: think of a film. The <b>imparfait</b> is the background — weather, time, place, feelings, what was going on, what used to happen. The <b>passé composé</b> is the single action that happens in front of it, once, and is finished. [[Il pleuvait quand je suis arrivé / arrivée.]] = background + event." },
+      { warn: "Don't use the imparfait for a single finished action. <i>Yesterday I ate a pizza</i> = [[Hier, j'ai mangé une pizza.]] If you say <s>Hier, je mangeais une pizza</s>, it means <i>I was eating a pizza…</i> and your listener waits for the rest of the story!" },
+      { h: "Use it: childhood memories", dialogue: [
+        ["Léa", "Tu habitais où quand tu étais petit ?", "Where did you live when you were little?"],
+        ["Arjun", "J'habitais à Pune, dans une grande maison avec mes grands-parents.", "I lived in Pune, in a big house with my grandparents."],
+        ["Léa", "C'était comment ?", "What was it like?"],
+        ["Arjun", "C'était génial ! Il y avait un jardin et il faisait toujours beau.", "It was great! There was a garden and the weather was always nice."],
+        ["Léa", "Qu'est-ce que tu faisais le week-end ?", "What did you use to do at the weekend?"],
+        ["Arjun", "Je jouais au cricket avec mes cousins. Un jour, j'ai cassé une fenêtre !", "I used to play cricket with my cousins. One day, I broke a window!"],
+        ["Léa", "Oh non ! Ta grand-mère était fâchée ?", "Oh no! Was your grandmother angry?"],
+        ["Arjun", "Non, elle riait ! Elle adorait le cricket.", "No, she was laughing! She loved cricket."]
+      ] }
+    ],
+    quiz: [
+      { type: "mcq", q: "[[nous finissons]] → je ___", options: ["finis", "finissais", "finissait"], answer: 1, explain: "Stem <b>finiss-</b> + <b>-ais</b> for je: [[je finissais]]. [[finissait]] is the il / elle form." },
+      { type: "fill", q: "Quand j'___ (être) petit / petite, j'habitais à Delhi.", answer: ["étais"], explain: "[[être]] → stem <b>ét-</b>: [[j'étais]]." },
+      { type: "mcq", q: "It was great! →", options: ["C'est super !", "Ça a super !", "C'était super !"], answer: 2, explain: "[[c'était]] = it was. You'll use it all the time." },
+      { type: "listen", say: "Il pleuvait quand je suis arrivé.", options: ["It was raining when I arrived.", "It rained after I arrived.", "It's raining, so I'm arriving."], answer: 0, explain: "[[il pleuvait]] = background (imparfait), [[je suis arrivé]] = event (passé composé)." },
+      { type: "fill", q: "Avant, nous ___ (habiter) à Mumbai.", answer: ["habitions"], explain: "nous → <b>-ions</b>: [[nous habitions]]." },
+      { type: "order", words: ["Il", "y", "avait", "beaucoup", "de", "monde."], en: "There were lots of people." },
+      { type: "mcq", q: "Hier soir, elle ___ un film, puis elle est allée se coucher. (one finished action)", options: ["regardait", "a regardé", "regarde"], answer: 1, explain: "A single, finished action → passé composé: [[elle a regardé]]." },
+      { type: "mcq", q: "Which is the imparfait of [[avoir]] for je?", options: ["j'avais", "j'ai eu", "j'avait"], answer: 0, explain: "je → <b>-ais</b>: [[j'avais]]. <s>j'avait</s> is a spelling mistake (that's the il ending)." },
+      { type: "listen", say: "Le dimanche, nous allions chez ma grand-mère.", options: ["This Sunday, we're going to my grandmother's.", "On Sundays, we used to go to my grandmother's.", "Last Sunday, we went to my grandmother's."], answer: 1, explain: "[[le dimanche]] (every Sunday) + imparfait [[allions]] = a habit: <i>used to go</i>." },
+      { type: "fill", q: "Avant, ils ___ (aller) au marché le samedi.", answer: ["allaient"], explain: "ils → <b>-aient</b>: [[ils allaient]]. It sounds just like [[il allait]]." },
+      { type: "speak", fr: "C'était super ! Il faisait beau et il y avait beaucoup de monde.", en: "It was great! The weather was nice and there were lots of people." }
+    ]
+  },
+  {
+    id: "g-time-markers",
+    cat: "grammar",
+    title: "Time words: depuis, pendant, il y a, dans, en",
+    minutes: 15,
+    summary: "Say how long, since when, how long ago and how soon: depuis, pendant, il y a, dans, en, à, de… à…, jusqu'à — and ask the matching questions.",
+    sections: [
+      { h: "Why it matters", p: "English <i>for</i> can be [[depuis]] or [[pendant]] in French, and <i>in</i> can be [[dans]] or [[en]]. These little words change the whole meaning, and the DELF examiner will ask you [[Depuis combien de temps… ?]] for sure. Let's start with the trickiest one: [[depuis|duh-PWEE]] = <i>since / for</i>, for something that <b>started in the past and is still true now</b>. French uses the <b>present</b> tense here, where English says <i>have been …-ing</i>." },
+      { h: "depuis + present tense", examples: [
+        { fr: "J'apprends le français depuis trois semaines.", en: "I have been learning French for three weeks." },
+        { fr: "J'habite à Bangalore depuis 2020.", en: "I have lived in Bangalore since 2020." },
+        { fr: "Je t'attends depuis une heure !", en: "I've been waiting for you for an hour!" },
+        { fr: "Elle travaille ici depuis lundi.", en: "She has been working here since Monday." }
+      ] },
+      { warn: "With [[depuis]], don't translate the English tense word for word. <i>I have lived here for two years</i> (and I still do) = [[J'habite ici depuis deux ans.]] Not <s>J'ai habité ici depuis deux ans</s>." },
+      { h: "pendant, il y a, dans", table: { head: ["Word", "Meaning", "Example"], rows: [
+        ["[[pendant|pahn-DAHN]]", "for / during (a period, often finished)", "[[J'ai habité à Pune pendant deux ans.]] — I lived in Pune for two years (I don't live there now). [[pendant les vacances]] — during the holidays."],
+        ["[[il y a|eel YAH]]", "ago", "[[Je suis arrivé / arrivée il y a trois jours.]] — I arrived three days ago."],
+        ["[[dans|DAHN]]", "in (from now, in the future)", "[[Le train part dans dix minutes.]] — The train leaves in ten minutes."]
+      ] } },
+      { h: "en and à", table: { head: ["Word", "Used with", "Example"], rows: [
+        ["[[en]]", "years", "[[en 2026]], [[Je suis né / née en 1998.]]"],
+        ["[[en]]", "months", "[[en novembre]], [[en mai]]"],
+        ["[[en]]", "seasons (but not spring!)", "[[en été]], [[en automne]], [[en hiver]] — but [[au printemps]]"],
+        ["[[en]]", "how long something takes", "[[J'ai fait le trajet en deux heures.]] — I did the journey in two hours."],
+        ["[[à]]", "clock times and some holidays", "[[à huit heures]] (written 8 h), [[à midi]], [[à Noël]]"]
+      ] } },
+      { h: "From… to…, until", examples: [
+        { fr: "Je travaille de neuf heures à dix-sept heures.", en: "I work from 9 a.m. to 5 p.m. (written: de 9 h à 17 h)" },
+        { fr: "J'ai cours du lundi au vendredi.", en: "I have classes from Monday to Friday." },
+        { fr: "Le magasin est ouvert jusqu'à vingt heures.", en: "The shop is open until 8 p.m." },
+        { fr: "Je suis en vacances jusqu'à lundi.", en: "I'm on holiday until Monday." }
+      ] },
+      { h: "Asking about time", examples: [
+        { fr: "Depuis quand tu habites ici ?", en: "Since when have you lived here?" },
+        { fr: "Depuis combien de temps tu apprends le français ?", en: "How long have you been learning French?" },
+        { fr: "Pendant combien de temps il a habité à Paris ?", en: "How long did he live in Paris?" },
+        { fr: "Le film commence dans combien de temps ?", en: "How long until the film starts?" }
+      ] },
+      { tip: "Picture a timeline. [[il y a]] points back to a moment in the past (<i>ago</i>). [[depuis]] is an arrow from the past that reaches <b>now</b> (still true → present tense). [[pendant]] is a closed box of time (<i>for two years</i>, then it stopped). [[dans]] points forward from now (<i>in ten minutes</i>). Answer a [[depuis]] question with [[depuis]]: [[Depuis combien de temps… ?]] → [[Depuis six mois.]]" },
+      { h: "Use it: the DELF speaking test", dialogue: [
+        ["L'examinatrice", "Vous habitez en France depuis combien de temps ?", "How long have you been living in France?"],
+        ["Ravi", "J'habite à Lyon depuis six mois. Je suis arrivé en mai.", "I've been living in Lyon for six months. I arrived in May."],
+        ["L'examinatrice", "Et vous apprenez le français depuis quand ?", "And since when have you been learning French?"],
+        ["Ravi", "Depuis un an. J'ai commencé en Inde, à Bangalore. J'ai pris des cours pendant six mois.", "For a year. I started in India, in Bangalore. I took classes for six months."],
+        ["L'examinatrice", "Vous rentrez en Inde quand ?", "When are you going back to India?"],
+        ["Ravi", "Dans trois mois, en février. Je vais rester à Bangalore pendant un mois, puis je reviens à Lyon.", "In three months, in February. I'm going to stay in Bangalore for a month, then I'm coming back to Lyon."]
+      ] }
+    ],
+    quiz: [
+      { type: "mcq", q: "J'apprends le français ___ trois semaines. (and I'm still learning)", options: ["il y a", "depuis", "dans"], answer: 1, explain: "Started in the past, still true → [[depuis]] + present." },
+      { type: "mcq", q: "He arrived three days ago. →", options: ["Il est arrivé depuis trois jours.", "Il est arrivé dans trois jours.", "Il est arrivé il y a trois jours."], answer: 2, explain: "<i>ago</i> = [[il y a]]." },
+      { type: "fill", q: "Le train part ___ dix minutes. (in)", answer: ["dans"], explain: "<i>in</i> + time from now = [[dans]]." },
+      { type: "fill", q: "Je suis né / née ___ 1998.", answer: ["en"], explain: "Years: [[en]]: [[en 1998]], [[en 2026]]." },
+      { type: "listen", say: "J'ai habité à Pune pendant deux ans.", options: ["I lived in Pune for two years.", "I've been living in Pune for two years.", "I'm going to live in Pune in two years."], answer: 0, explain: "[[pendant]] + passé composé = a finished period. Now this person lives somewhere else." },
+      { type: "order", words: ["Depuis", "combien", "de", "temps", "tu", "apprends", "le", "français ?"], en: "How long have you been learning French?" },
+      { type: "mcq", q: "Which sentence is correct? (You still live there.)", options: ["J'ai habité ici depuis deux ans.", "J'habite ici pendant deux ans.", "J'habite ici depuis deux ans."], answer: 2, explain: "Still true now → [[depuis]] + present: [[J'habite ici depuis deux ans.]]" },
+      { type: "fill", q: "Le magasin est ouvert ___ 20 heures. (until)", answer: ["jusqu'à", "jusqu’à"], explain: "<i>until</i> = [[jusqu'à]]." },
+      { type: "listen", say: "On se voit dans une heure ?", options: ["We met an hour ago.", "Shall we meet in an hour?", "We've been waiting for an hour."], answer: 1, explain: "[[dans une heure]] = in an hour (from now)." },
+      { type: "mcq", q: "___ été, il fait très chaud à Delhi.", options: ["Au", "En", "Dans"], answer: 1, explain: "Seasons: [[en été]], [[en automne]], [[en hiver]] — but [[au printemps]]." },
+      { type: "speak", fr: "J'apprends le français depuis un mois.", en: "I've been learning French for a month." }
+    ]
+  },
+  {
+    id: "g-qui-que",
+    cat: "grammar",
+    title: "Joining sentences: qui and que",
+    minutes: 15,
+    summary: "Join two short sentences into one with qui and que (J'ai un ami qui habite à Paris. Le livre que je lis est super.) and use C'est… qui / que to highlight things.",
+    sections: [
+      { h: "Why it matters", p: "Short sentences are fine, but joining them makes your French sound much more natural. [[J'ai un ami. Il habite à Paris.]] → [[J'ai un ami qui habite à Paris.]] [[qui|KEE]] and [[que|KUH]] work like English <i>who, which, that</i>, for people <b>and</b> things." },
+      { h: "The idea", p: "[[qui]] replaces the <b>subject</b>: the person or thing that <b>does</b> the action. So [[qui]] is followed directly by a verb. [[que]] replaces the <b>object</b>: the person or thing the action is <b>done to</b>. So [[que]] is followed by a new subject + verb." },
+      { h: "qui = the one doing the action", examples: [
+        { fr: "J'ai un ami qui habite à Paris.", en: "I have a friend who lives in Paris." },
+        { fr: "C'est un film qui est très drôle.", en: "It's a film that is very funny." },
+        { fr: "Je cherche un bus qui va à la gare.", en: "I'm looking for a bus that goes to the station." },
+        { fr: "La femme qui parle avec Paul est ma prof.", en: "The woman who is talking to Paul is my teacher." }
+      ] },
+      { h: "que = the one receiving the action", examples: [
+        { fr: "Le livre que je lis est super.", en: "The book (that) I'm reading is great." },
+        { fr: "Le chai que tu fais est délicieux.", en: "The chai (that) you make is delicious." },
+        { fr: "L'ami qu'elle aime habite à Delhi.", en: "The friend (that) she loves lives in Delhi." },
+        { fr: "Les films que nous regardons sont en français.", en: "The films (that) we watch are in French." }
+      ] },
+      { tip: "Quick test — look at the next word. <b>qui + verb</b>: [[qui habite]], [[qui est]], [[qui va]]. <b>que + subject + verb</b>: [[que je lis]], [[que tu fais]], [[qu'elle aime]]. If a verb comes right after the gap, it's [[qui]]." },
+      { warn: "English can drop <i>that</i>: <i>the book I'm reading</i>. French can <b>never</b> drop [[que]]: [[le livre que je lis]], not <s>le livre je lis</s>. And [[que]] becomes [[qu']] before a vowel ([[qu'elle]], [[qu'il]], [[qu'on]]), but [[qui]] <b>never</b> changes: [[l'ami qui arrive]], not <s>l'ami qu'arrive</s>." },
+      { h: "Two sentences → one", table: { head: ["Two sentences", "One sentence"], rows: [
+        ["[[J'ai une sœur. Elle parle quatre langues.]]", "[[J'ai une sœur qui parle quatre langues.]]"],
+        ["[[Le restaurant est près de la gare. Il est très bon.]]", "[[Le restaurant qui est près de la gare est très bon.]]"],
+        ["[[Je lis un livre. Il est super.]]", "[[Le livre que je lis est super.]]"],
+        ["[[Ma mère prépare un plat. J'adore ce plat.]]", "[[J'adore le plat que ma mère prépare.]]"]
+      ] } },
+      { h: "C'est… qui / C'est… que: pointing at something", examples: [
+        { fr: "Diwali, c'est la fête que je préfère.", en: "Diwali is the festival I like best." },
+        { fr: "C'est mon frère qui cuisine à la maison.", en: "It's my brother who cooks at home." },
+        { fr: "C'est le train qui va à Lyon ?", en: "Is this the train that goes to Lyon?" },
+        { fr: "C'est la ville que je préfère.", en: "It's the city I like best." }
+      ] },
+      { h: "Use it: looking at photos", dialogue: [
+        ["Chloé", "C'est qui, la fille qui porte un sari bleu ?", "Who's the girl wearing a blue sari?"],
+        ["Kavya", "C'est ma cousine Diya. C'est elle qui habite à Londres.", "That's my cousin Diya. She's the one who lives in London."],
+        ["Chloé", "Et le garçon qui danse ?", "And the boy who's dancing?"],
+        ["Kavya", "C'est mon frère. Et ça, ce sont les sucreries que ma mère prépare pour Diwali.", "That's my brother. And these are the sweets my mother makes for Diwali."],
+        ["Chloé", "Elles ont l'air délicieuses ! C'est une recette que je peux faire ?", "They look delicious! Is it a recipe I can make?"],
+        ["Kavya", "Oui, c'est une recette qui est très facile. Je l'envoie ce soir !", "Yes, it's a recipe that's very easy. I'll send it tonight!"]
+      ] }
+    ],
+    quiz: [
+      { type: "mcq", q: "J'ai un ami ___ habite à Paris.", options: ["que", "qui", "qu'"], answer: 1, explain: "A verb comes next ([[habite]]) → [[qui]]." },
+      { type: "mcq", q: "Le livre ___ je lis est super.", options: ["que", "qui", "quoi"], answer: 0, explain: "A subject comes next ([[je]]) → [[que]]." },
+      { type: "fill", q: "C'est la ville ___ je préfère.", answer: ["que"], explain: "[[que]] + subject + verb: [[que je préfère]]." },
+      { type: "fill", q: "Je cherche un bus ___ va à la gare.", answer: ["qui"], explain: "The bus does the action (goes) → [[qui va]]." },
+      { type: "mcq", q: "L'ami ___ elle aime habite à Delhi.", options: ["qui", "que", "qu'"], answer: 2, explain: "[[que]] + [[elle]] → [[qu'elle]]." },
+      { type: "listen", say: "C'est une actrice qui est très connue en Inde.", options: ["She's an actress I know in India.", "She's an actress who is very famous in India.", "She's an Indian actress who knows me."], answer: 1, explain: "[[qui est très connue]] = who is very famous." },
+      { type: "order", words: ["Le", "chai", "que", "tu", "fais", "est", "délicieux."], en: "The chai you make is delicious." },
+      { type: "mcq", q: "the friend who is arriving →", options: ["l'ami qu'arrive", "l'ami que arrive", "l'ami qui arrive"], answer: 2, explain: "A verb comes next → [[qui]], and [[qui]] never becomes <s>qu'</s>." },
+      { type: "listen", say: "Le film qu'on a vu hier était super.", options: ["The film we saw yesterday was great.", "The film that's on tomorrow is great.", "We didn't see the film yesterday."], answer: 0, explain: "[[qu'on a vu]] = that we saw ([[on]] = we)." },
+      { type: "fill", q: "Voici le cadeau ___ Anil a acheté pour toi.", answer: ["qu'", "qu’"], explain: "A subject comes next ([[Anil]]) → [[que]], and before a vowel → [[qu']]." },
+      { type: "speak", fr: "J'ai une amie qui habite à Bangalore.", en: "I have a friend who lives in Bangalore." }
+    ]
+  },
+  {
+    id: "g-y-en",
+    cat: "grammar",
+    title: "Little pronouns y and en (intro)",
+    minutes: 15,
+    summary: "Recognise and use y (there) and en (some, of it, of them) in everyday phrases: On y va ! J'y vais. J'en veux. J'en ai deux. Il y en a beaucoup.",
+    sections: [
+      { h: "Why it matters", p: "[[y|EE]] and [[en|AHN]] are two tiny words that French people use all the time — you already know one: [[il y a]]! They save you from repeating a place or a thing. At A1, the goal is simple: <b>recognise</b> them when you hear them and <b>use</b> the common fixed expressions. You'll go deeper later." },
+      { h: "y = there", p: "[[y]] replaces a <b>place</b> that was just mentioned (after [[à]], [[en]], [[chez]], [[dans]]…). Like [[le]], [[la]], [[les]], it goes <b>before</b> the verb: [[Tu vas à Paris ?]] → [[Oui, j'y vais.|wee zhee VEH]] (Yes, I'm going there.)" },
+      { examples: [
+        { fr: "Tu vas à Paris ? — Oui, j'y vais demain.", en: "Are you going to Paris? — Yes, I'm going (there) tomorrow." },
+        { fr: "Tu habites à Mumbai ? — Oui, j'y habite depuis cinq ans.", en: "Do you live in Mumbai? — Yes, I've lived there for five years." },
+        { fr: "Elle est chez elle ? — Non, elle n'y est pas.", en: "Is she at home? — No, she isn't (there)." }
+      ] },
+      { h: "Fixed expressions with y", table: { head: ["French", "English"], rows: [
+        ["[[On y va !|ohn-nee VAH]]", "Let's go! / Here we go!"],
+        ["[[Allons-y !|ah-lohn-ZEE]]", "Let's go!"],
+        ["[[Vas-y !|vah-ZEE]]", "Go on! / Go for it!"],
+        ["[[J'y vais.|zhee VEH]]", "I'm off. / I'm going (there)."],
+        ["[[Ça y est !|sah YEH]]", "That's it! / Done!"],
+        ["[[il y a|eel YAH]]", "there is / there are"]
+      ] } },
+      { h: "en = some, any, of it, of them", p: "[[en]] replaces [[du]], [[de la]], [[de l']], [[des]] + a thing — an amount of something. English says <i>some</i>, <i>any</i> or often nothing at all. It also goes <b>before</b> the verb: [[Tu veux du café ?]] → [[Oui, j'en veux.|wee zhahn VUH]] (Yes, I'd like some.)" },
+      { examples: [
+        { fr: "Il y a du lait ? — Non, il n'y en a pas.", en: "Is there any milk? — No, there isn't any." },
+        { fr: "Tu as des enfants ? — Oui, j'en ai.", en: "Do you have children? — Yes, I do." },
+        { fr: "Vous voulez de l'eau ? — Non merci, je n'en veux pas.", en: "Would you like some water? — No thanks, I don't want any." }
+      ] },
+      { h: "en with numbers and quantities", table: { head: ["Question", "Answer with en", "English"], rows: [
+        ["[[Tu as des frères ?]]", "[[Oui, j'en ai deux.]]", "Yes, I have two."],
+        ["[[Combien de pommes voulez-vous ?]]", "[[J'en prends deux.]]", "I'll take two."],
+        ["[[Il y a beaucoup de monde ?]]", "[[Oui, il y en a beaucoup.]]", "Yes, there are lots (of people)."],
+        ["[[Tu bois du chai ?]]", "[[Oui, j'en bois trois tasses par jour !]]", "Yes, I drink three cups a day!"]
+      ] } },
+      { warn: "Don't forget [[en]] when you give a number! English says <i>I have two</i>, but French needs [[en]]: [[J'ai deux frères.]] → [[J'en ai deux.]] Never <s>J'ai deux.</s> And [[un]] / [[une]] count as numbers: [[Tu as une voiture ? — Oui, j'en ai une.]]" },
+      { tip: "Position, in short: before the conjugated verb, glued to it. Negative: [[Je n'y vais pas.]] [[Je n'en veux pas.]] With an infinitive, before the infinitive: [[Je vais y aller.]] [[Tu peux en acheter ?]] (Can you buy some?) Listen for the links: [[on y va]] sounds like <i>ohn-nee-vah</i> and [[il y en a]] like <i>eel-yahn-nah</i>." },
+      { h: "Use it: at the market", dialogue: [
+        ["Le vendeur", "Bonjour ! Qu'est-ce que vous voulez ?", "Hello! What would you like?"],
+        ["Meera", "Bonjour ! Vous avez des mangues ?", "Hello! Do you have any mangoes?"],
+        ["Le vendeur", "Oui, j'en ai. Elles viennent d'Inde ! Vous en voulez combien ?", "Yes, I have some. They come from India! How many would you like?"],
+        ["Meera", "J'en prends trois, s'il vous plaît. Et du fromage, vous en avez ?", "I'll take three, please. And cheese, do you have any?"],
+        ["Le vendeur", "Ah non, désolé, je n'en ai pas. Mais il y a une fromagerie à côté.", "Ah no, sorry, I don't have any. But there's a cheese shop next door."],
+        ["Meera", "Super, j'y vais tout de suite. Merci !", "Great, I'll go there right away. Thanks!"]
+      ] }
+    ],
+    quiz: [
+      { type: "mcq", q: "Tu vas à Paris ? — Oui, j'___ vais.", options: ["en", "y", "le"], answer: 1, explain: "A place → [[y]]: [[J'y vais.]]" },
+      { type: "mcq", q: "Tu veux du café ? — Oui, j'___ veux.", options: ["y", "le", "en"], answer: 2, explain: "[[du café]] (an amount) → [[en]]: [[J'en veux.]]" },
+      { type: "fill", q: "J'ai deux frères. → J'___ ai deux.", answer: ["en"], explain: "With a number, keep the number and add [[en]]: [[J'en ai deux.]]" },
+      { type: "listen", say: "On y va !", options: ["Let's go!", "We're there!", "Go away!"], answer: 0, explain: "[[On y va !]] = Let's go! You'll hear it every day in France." },
+      { type: "order", words: ["Il", "n'y", "en", "a", "pas."], en: "There isn't any." },
+      { type: "fill", q: "Tu habites à Delhi ? — Oui, j'___ habite depuis deux ans.", answer: ["y"], explain: "A place (à Delhi) → [[y]]: [[J'y habite.]]" },
+      { type: "mcq", q: "Des pommes ? I'll take three. →", options: ["J'y prends trois.", "Je prends trois en.", "J'en prends trois."], answer: 2, explain: "[[en]] before the verb, the number at the end: [[J'en prends trois.]]" },
+      { type: "listen", say: "Il y en a beaucoup.", options: ["There isn't any.", "There are lots of them.", "He has a lot of them."], answer: 1, explain: "[[il y en a]] = there is / are some; [[beaucoup]] = lots." },
+      { type: "mcq", q: "Tu vas au marché ? — Non, je ___ vais pas.", options: ["n'en", "n'y", "ne le"], answer: 1, explain: "A place → [[y]]; negative: [[Je n'y vais pas.]]" },
+      { type: "fill", q: "Tu as une voiture ? — Oui, j'en ai ___.", answer: ["une"], explain: "[[une]] counts as a number: [[J'en ai une.]]" },
+      { type: "speak", fr: "Du chai ? Oui, j'en bois tous les jours.", en: "Chai? Yes, I drink some every day." }
+    ]
   }
 ]);

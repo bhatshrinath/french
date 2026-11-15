@@ -343,6 +343,349 @@ A1.addScenarios([
       { prompt: "Ask if the journey is long.", answer: "C'est long, le trajet ?", alt: ["Le trajet est long ?", "Le trajet dure combien de temps ?"] }
     ],
     freeTalk: "You are at a metro station in Paris with a friend. Buy tickets, then ask the agent how to get to Montmartre: which line, which direction, where to change and where to get off. Repeat each instruction to check you understood."
+  },
+  {
+    id: "s-train",
+    title: "At the train station",
+    icon: "🚆",
+    goal: "Buy a return ticket from Paris to Lyon: give your days, understand times and the price, and ask about the platform.",
+    roles: { A: "L'agent au guichet (ticket clerk)", B: "Vous (you)" },
+    dialogue: [
+      ["A", "Bonjour ! C'est pour quel trajet ?", "Hello! Which journey is it for?"],
+      ["B", "Bonjour. Je voudrais un aller-retour Paris–Lyon, s'il vous plaît.", "Hello. I'd like a return ticket from Paris to Lyon, please."],
+      ["A", "Vous partez quand ?", "When are you leaving?"],
+      ["B", "L'aller vendredi matin, et le retour dimanche soir.", "Going on Friday morning, and coming back on Sunday evening."],
+      ["A", "Vendredi, il y a un train à neuf heures. Il arrive à Lyon à onze heures.", "On Friday, there's a train at nine o'clock. It arrives in Lyon at eleven."],
+      ["B", "Parfait. Et pour le retour, dimanche ?", "Perfect. And for the return, on Sunday?"],
+      ["A", "Il y a un train à dix-huit heures trente.", "There's a train at six thirty p.m."],
+      ["B", "Très bien. C'est combien, l'aller-retour ?", "Very good. How much is the return ticket?"],
+      ["A", "En seconde classe, cent douze euros.", "In second class, one hundred and twelve euros."],
+      ["B", "D'accord, je le prends. Voilà ma carte.", "OK, I'll take it. Here's my card."],
+      ["A", "Merci. Voici vos billets.", "Thank you. Here are your tickets."],
+      ["B", "Le train part de quel quai ?", "Which platform does the train leave from?"],
+      ["A", "Le quai est affiché sur le panneau vingt minutes avant le départ. Bon voyage !", "The platform is shown on the board twenty minutes before departure. Have a good trip!"],
+      ["B", "Merci beaucoup. Au revoir !", "Thank you very much. Goodbye!"]
+    ],
+    keyPhrases: [
+      ["un aller simple / un aller-retour", "a single ticket / a return ticket"],
+      ["Je voudrais un aller-retour Paris–Lyon.", "I'd like a return ticket from Paris to Lyon."],
+      ["Le train part à quelle heure ?", "What time does the train leave?"],
+      ["Il arrive à quelle heure ?", "What time does it arrive?"],
+      ["en seconde classe / en première classe", "in second class / in first class"],
+      ["C'est combien, l'aller-retour ?", "How much is the return ticket?"],
+      ["Le train part de quel quai ?", "Which platform does the train leave from?"],
+      ["le départ / l'arrivée", "departure / arrival (f.)"]
+    ],
+    practice: [
+      { prompt: "Ask for a single ticket to Marseille.", answer: "Un aller simple pour Marseille, s'il vous plaît.", alt: ["Je voudrais un aller simple pour Marseille, s'il vous plaît."] },
+      { prompt: "Ask for a return ticket from Paris to Lyon.", answer: "Un aller-retour Paris–Lyon, s'il vous plaît.", alt: ["Je voudrais un aller-retour Paris–Lyon, s'il vous plaît.", "Un aller-retour pour Lyon, s'il vous plaît."] },
+      { prompt: "Ask what time the train leaves.", answer: "Le train part à quelle heure ?", alt: ["À quelle heure part le train ?", "Il part à quelle heure ?"] },
+      { prompt: "Ask what time it arrives in Lyon.", answer: "Il arrive à Lyon à quelle heure ?", alt: ["À quelle heure il arrive à Lyon ?", "Le train arrive à quelle heure ?"] },
+      { prompt: "Say you'd like to travel in second class.", answer: "En seconde classe, s'il vous plaît.", alt: ["En deuxième classe, s'il vous plaît.", "Je voudrais voyager en seconde classe."] },
+      { prompt: "Ask how much the return ticket is.", answer: "C'est combien, l'aller-retour ?", alt: ["L'aller-retour, c'est combien ?", "Combien coûte l'aller-retour ?"] },
+      { prompt: "Ask which platform the train leaves from.", answer: "Le train part de quel quai ?", alt: ["De quel quai part le train ?", "C'est quel quai ?"] }
+    ],
+    freeTalk: "You want to visit a friend in Bordeaux next weekend. At the ticket office, buy a return ticket: give the days, ask for departure and arrival times, choose a class, ask the price and the platform. Pay and say goodbye."
+  },
+  {
+    id: "s-hotel",
+    title: "Checking into a hotel",
+    icon: "🏨",
+    goal: "Check in: give your reservation name, confirm the nights, and ask about breakfast, wifi and your key.",
+    roles: { A: "Le réceptionniste (receptionist)", B: "Vous (you)" },
+    dialogue: [
+      ["A", "Bonsoir, bienvenue à l'hôtel du Parc !", "Good evening, welcome to the Hôtel du Parc!"],
+      ["B", "Bonsoir. J'ai une réservation au nom de Kumar.", "Good evening. I have a reservation in the name of Kumar."],
+      ["A", "Kumar… Oui. Une chambre simple pour trois nuits, c'est bien ça ?", "Kumar… Yes. A single room for three nights, is that right?"],
+      ["B", "Oui, c'est ça. Jusqu'à jeudi.", "Yes, that's right. Until Thursday."],
+      ["A", "Très bien. Votre passeport, s'il vous plaît.", "Very good. Your passport, please."],
+      ["B", "Voilà. Le petit déjeuner est compris ?", "Here it is. Is breakfast included?"],
+      ["A", "Oui, il est servi de sept heures à dix heures, au rez-de-chaussée.", "Yes, it's served from seven to ten, on the ground floor."],
+      ["B", "Parfait. Il y a le wifi dans la chambre ?", "Perfect. Is there wifi in the room?"],
+      ["A", "Oui, c'est gratuit. Le mot de passe est sur cette carte.", "Yes, it's free. The password is on this card."],
+      ["B", "Merci. Et il y a un ascenseur ?", "Thank you. And is there a lift?"],
+      ["A", "Oui, à gauche. Voici votre clé : chambre 214, au deuxième étage.", "Yes, on the left. Here's your key: room 214, on the second floor."],
+      ["B", "Merci beaucoup. Bonne soirée !", "Thank you very much. Have a nice evening!"]
+    ],
+    keyPhrases: [
+      ["J'ai une réservation au nom de…", "I have a reservation in the name of…"],
+      ["une chambre simple / une chambre double", "a single room / a double room"],
+      ["pour trois nuits", "for three nights"],
+      ["Le petit déjeuner est compris ?", "Is breakfast included?"],
+      ["Il y a le wifi ?", "Is there wifi?"],
+      ["le mot de passe", "the password"],
+      ["la clé de la chambre", "the room key"],
+      ["au rez-de-chaussée / au deuxième étage", "on the ground floor / on the second floor"],
+      ["Il y a un ascenseur ?", "Is there a lift?"]
+    ],
+    practice: [
+      { prompt: "Say you have a reservation in the name of Rao.", answer: "J'ai une réservation au nom de Rao.", alt: ["J'ai réservé au nom de Rao.", "Bonjour, une réservation au nom de Rao."] },
+      { prompt: "Say you'd like a double room for two nights.", answer: "Je voudrais une chambre double pour deux nuits.", alt: ["Une chambre double pour deux nuits, s'il vous plaît."] },
+      { prompt: "Ask if breakfast is included.", answer: "Le petit déjeuner est compris ?", alt: ["Est-ce que le petit déjeuner est compris ?", "Le petit déjeuner est inclus ?"] },
+      { prompt: "Ask what time breakfast is.", answer: "Le petit déjeuner est à quelle heure ?", alt: ["À quelle heure est le petit déjeuner ?", "Le petit déjeuner est servi à quelle heure ?"] },
+      { prompt: "Ask for the wifi password.", answer: "Quel est le mot de passe du wifi ?", alt: ["C'est quoi, le mot de passe du wifi ?", "Le mot de passe du wifi, s'il vous plaît."] },
+      { prompt: "Ask if there is a lift.", answer: "Il y a un ascenseur ?", alt: ["Est-ce qu'il y a un ascenseur ?"] },
+      { prompt: "Ask what time you must leave the room on the last day.", answer: "Je dois libérer la chambre à quelle heure ?", alt: ["À quelle heure je dois quitter la chambre ?", "Je dois partir à quelle heure ?"] }
+    ],
+    freeTalk: "You arrive at a small hotel in Nice after a long journey. Give your name, check the number of nights, ask about breakfast times, the wifi and the lift, and ask what time you must leave the room on the last day."
+  },
+  {
+    id: "s-clothes",
+    title: "Shopping for clothes",
+    icon: "👕",
+    goal: "Ask for an item in your size and colour, try it on, ask the price and pay by card.",
+    roles: { A: "La vendeuse (shop assistant)", B: "Vous (you)" },
+    dialogue: [
+      ["A", "Bonjour ! Je peux vous aider ?", "Hello! Can I help you?"],
+      ["B", "Oui, je cherche un pull, s'il vous plaît.", "Yes, I'm looking for a jumper, please."],
+      ["A", "Vous faites quelle taille ?", "What size are you?"],
+      ["B", "Je fais du M.", "I'm a medium."],
+      ["A", "Nous avons ce modèle en bleu, en gris et en rouge. Quelle couleur préférez-vous ?", "We have this one in blue, grey and red. Which colour do you prefer?"],
+      ["B", "En bleu, s'il vous plaît. Je peux l'essayer ?", "In blue, please. Can I try it on?"],
+      ["A", "Bien sûr. Les cabines sont au fond, à droite.", "Of course. The fitting rooms are at the back, on the right."],
+      ["B", "Il est un peu petit. Vous l'avez en L ?", "It's a bit small. Do you have it in L?"],
+      ["A", "Oui, voilà le L.", "Yes, here's the L."],
+      ["B", "Ah, c'est parfait ! Il coûte combien ?", "Oh, it's perfect! How much does it cost?"],
+      ["A", "Quarante-cinq euros, mais aujourd'hui, il y a moins vingt pour cent : ça fait trente-six euros.", "Forty-five euros, but today there's twenty percent off: that makes thirty-six euros."],
+      ["B", "Super ! Je le prends. Je peux payer par carte ?", "Great! I'll take it. Can I pay by card?"],
+      ["A", "Bien sûr. Vous pouvez payer sans contact.", "Of course. You can pay contactless."],
+      ["B", "Merci beaucoup. Bonne journée !", "Thank you very much. Have a nice day!"]
+    ],
+    keyPhrases: [
+      ["Je cherche un pull.", "I'm looking for a jumper."],
+      ["Vous faites quelle taille ? — Je fais du M.", "What size are you? — I'm a medium."],
+      ["Vous l'avez en bleu ?", "Do you have it in blue?"],
+      ["Je peux l'essayer ?", "Can I try it on?"],
+      ["les cabines (d'essayage)", "the fitting rooms"],
+      ["C'est trop petit / trop grand.", "It's too small / too big."],
+      ["Il coûte combien ?", "How much does it cost?"],
+      ["Je le prends. / Je la prends.", "I'll take it. (for a masculine / feminine item)"],
+      ["Je peux payer par carte ?", "Can I pay by card?"]
+    ],
+    practice: [
+      { prompt: "Say you're looking for a T-shirt.", answer: "Je cherche un tee-shirt.", alt: ["Je cherche un t-shirt.", "Bonjour, je cherche un tee-shirt."] },
+      { prompt: "Say you're a size S.", answer: "Je fais du S.", alt: ["Je fais une taille S.", "Taille S, s'il vous plaît."] },
+      { prompt: "Ask if they have it in black.", answer: "Vous l'avez en noir ?", alt: ["Est-ce que vous l'avez en noir ?", "Vous avez ce modèle en noir ?"] },
+      { prompt: "Ask if you can try it on.", answer: "Je peux l'essayer ?", alt: ["Est-ce que je peux l'essayer ?"] },
+      { prompt: "Say the trousers are too big (le pantalon).", answer: "Le pantalon est trop grand.", alt: ["Il est trop grand."] },
+      { prompt: "Ask how much the dress costs (la robe).", answer: "Elle coûte combien, la robe ?", alt: ["Combien coûte la robe ?", "La robe, c'est combien ?"] },
+      { prompt: "Say you'll take the dress and ask to pay by card.", answer: "Je la prends. Je peux payer par carte ?", alt: ["Je la prends. Est-ce que je peux payer par carte ?"] }
+    ],
+    freeTalk: "You need a warm jacket for a winter trip to Paris. In the shop, say what you are looking for, give your size and favourite colour, ask to try it on, say if it is too big or too small, ask the price and pay by card."
+  },
+  {
+    id: "s-doctor",
+    title: "At the doctor's",
+    icon: "🩺",
+    goal: "Explain your symptoms, say since when you feel ill, and understand the doctor's advice and prescription.",
+    roles: { A: "Le médecin (doctor)", B: "Vous (you)" },
+    dialogue: [
+      ["A", "Bonjour, entrez. Asseyez-vous. Qu'est-ce qui ne va pas ?", "Hello, come in. Sit down. What's wrong?"],
+      ["B", "Bonjour, docteur. J'ai mal à la tête et j'ai de la fièvre.", "Hello, doctor. I have a headache and a fever."],
+      ["A", "Depuis quand ?", "Since when?"],
+      ["B", "Depuis deux jours.", "For two days."],
+      ["A", "Vous toussez ?", "Are you coughing?"],
+      ["B", "Oui, un peu. Et j'ai mal à la gorge.", "Yes, a little. And I have a sore throat."],
+      ["A", "Je vais vous examiner… Bon, vous avez la grippe.", "I'm going to examine you… Right, you have the flu."],
+      ["B", "C'est grave ?", "Is it serious?"],
+      ["A", "Non, ce n'est pas grave. Reposez-vous et buvez beaucoup d'eau. Voici une ordonnance.", "No, it's not serious. Rest and drink a lot of water. Here's a prescription."],
+      ["B", "Merci. Je dois rester à la maison ?", "Thank you. Do I have to stay at home?"],
+      ["A", "Oui, trois jours. Je vous fais un arrêt de travail.", "Yes, for three days. I'll write you a sick note for work."],
+      ["B", "D'accord. Je vous dois combien ?", "OK. How much do I owe you?"],
+      ["A", "Trente euros, s'il vous plaît.", "Thirty euros, please."],
+      ["B", "Voilà. Merci, docteur. Au revoir !", "Here you are. Thank you, doctor. Goodbye!"]
+    ],
+    keyPhrases: [
+      ["Qu'est-ce qui ne va pas ?", "What's wrong?"],
+      ["J'ai mal à la tête.", "I have a headache."],
+      ["J'ai mal à la gorge / au ventre / au dos.", "I have a sore throat / a stomach ache / backache."],
+      ["J'ai de la fièvre.", "I have a fever."],
+      ["Je tousse.", "I'm coughing."],
+      ["Depuis quand ? — Depuis deux jours.", "Since when? — For two days."],
+      ["C'est grave ?", "Is it serious?"],
+      ["une ordonnance", "a prescription"],
+      ["Je vous dois combien ?", "How much do I owe you?"]
+    ],
+    practice: [
+      { prompt: "Say you have a headache.", answer: "J'ai mal à la tête.", alt: ["J'ai très mal à la tête."] },
+      { prompt: "Say you have a stomach ache and a fever.", answer: "J'ai mal au ventre et j'ai de la fièvre.", alt: ["J'ai mal au ventre et de la fièvre."] },
+      { prompt: "Say you have been ill for three days.", answer: "Depuis trois jours.", alt: ["Je suis malade depuis trois jours.", "Depuis 3 jours."] },
+      { prompt: "Say you are coughing a lot.", answer: "Je tousse beaucoup.", alt: ["Je tousse énormément."] },
+      { prompt: "Ask if it's serious.", answer: "C'est grave ?", alt: ["Est-ce que c'est grave ?"] },
+      { prompt: "Say you have backache.", answer: "J'ai mal au dos.", alt: ["J'ai très mal au dos."] },
+      { prompt: "Ask how much you owe the doctor.", answer: "Je vous dois combien ?", alt: ["C'est combien ?", "Combien je vous dois ?"] }
+    ],
+    freeTalk: "You feel ill during a trip to France and see a doctor. Explain two or three symptoms, say since when you have them, answer the doctor's questions (fever? cough?), ask if it's serious, and ask how much you owe."
+  },
+  {
+    id: "s-pharmacy",
+    title: "At the pharmacy",
+    icon: "💊",
+    goal: "Explain a small health problem, get something for it and understand how many times a day to take it.",
+    roles: { A: "Le pharmacien (pharmacist)", B: "Vous (you)" },
+    dialogue: [
+      ["A", "Bonjour ! Qu'est-ce que je peux faire pour vous ?", "Hello! What can I do for you?"],
+      ["B", "Bonjour. J'ai mal à la gorge. Vous avez quelque chose, s'il vous plaît ?", "Hello. I have a sore throat. Do you have something for it, please?"],
+      ["A", "Vous avez mal depuis quand ?", "How long has it been hurting?"],
+      ["B", "Depuis hier soir.", "Since last night."],
+      ["A", "Vous avez de la fièvre ?", "Do you have a fever?"],
+      ["B", "Non, je n'ai pas de fièvre. Mais je tousse un peu.", "No, I don't have a fever. But I'm coughing a little."],
+      ["A", "Alors, je vous donne des pastilles pour la gorge et un sirop pour la toux.", "Then I'll give you some throat lozenges and a cough syrup."],
+      ["B", "Je prends le sirop combien de fois par jour ?", "How many times a day do I take the syrup?"],
+      ["A", "Trois fois par jour, après les repas. Et les pastilles, une toutes les trois heures.", "Three times a day, after meals. And the lozenges, one every three hours."],
+      ["B", "D'accord : trois fois par jour, après les repas. C'est combien ?", "OK: three times a day, after meals. How much is it?"],
+      ["A", "Les pastilles, cinq euros cinquante, et le sirop, sept euros. Ça fait douze euros cinquante.", "The lozenges, five euros fifty, and the syrup, seven euros. That's twelve euros fifty."],
+      ["B", "Voilà. Merci beaucoup !", "Here you are. Thank you very much!"],
+      ["A", "Je vous en prie. Si ça ne va pas mieux dans trois jours, allez voir un médecin.", "You're welcome. If you're not better in three days, go and see a doctor."],
+      ["B", "D'accord, merci. Au revoir !", "OK, thank you. Goodbye!"]
+    ],
+    keyPhrases: [
+      ["J'ai mal à la gorge.", "I have a sore throat."],
+      ["Vous avez quelque chose pour la gorge ?", "Do you have something for a sore throat?"],
+      ["Je n'ai pas de fièvre.", "I don't have a fever."],
+      ["des pastilles / un sirop", "lozenges / a syrup"],
+      ["Je le prends combien de fois par jour ?", "How many times a day do I take it?"],
+      ["trois fois par jour", "three times a day"],
+      ["après les repas / avant les repas", "after meals / before meals"],
+      ["Si ça ne va pas mieux…", "If you're not better…"]
+    ],
+    practice: [
+      { prompt: "Say you have a sore throat.", answer: "J'ai mal à la gorge.", alt: ["J'ai très mal à la gorge."] },
+      { prompt: "Ask if they have something for a cough.", answer: "Vous avez quelque chose contre la toux ?", alt: ["Vous avez quelque chose pour la toux ?", "Vous avez un sirop pour la toux ?"] },
+      { prompt: "Say you don't have a fever.", answer: "Je n'ai pas de fièvre.", alt: ["Non, je n'ai pas de fièvre.", "Pas de fièvre."] },
+      { prompt: "Ask how many times a day you take the medicine (le médicament).", answer: "Je le prends combien de fois par jour ?", alt: ["Combien de fois par jour ?", "Je dois le prendre combien de fois par jour ?"] },
+      { prompt: "Repeat the instructions: twice a day, before meals.", answer: "Deux fois par jour, avant les repas.", alt: ["Deux fois par jour avant les repas."] },
+      { prompt: "Ask if you need a prescription.", answer: "Il faut une ordonnance ?", alt: ["Est-ce qu'il faut une ordonnance ?", "J'ai besoin d'une ordonnance ?"] }
+    ],
+    freeTalk: "You wake up on holiday with a sore throat and a cold. Go to the pharmacy: say how you feel and since when, ask for something, ask how many times a day to take it and how much it costs. Repeat the instructions to check."
+  },
+  {
+    id: "s-invite",
+    title: "Inviting a friend out",
+    icon: "🎬",
+    goal: "Invite a friend to the cinema on Saturday, agree on a time and place, and refuse another plan politely.",
+    roles: { A: "Camille, votre ami / amie (your friend)", B: "Vous (you)" },
+    dialogue: [
+      ["A", "Allô, oui ?", "Hello?"],
+      ["B", "Salut, Camille ! C'est Kiran. Ça va ?", "Hi, Camille! It's Kiran. How are you?"],
+      ["A", "Ah, salut Kiran ! Oui, ça va bien. Et toi ?", "Oh, hi Kiran! Yes, I'm fine. And you?"],
+      ["B", "Très bien, merci. Dis, tu es libre samedi ?", "Very well, thanks. Say, are you free on Saturday?"],
+      ["A", "Samedi après-midi, non, je travaille. Mais samedi soir, oui. Pourquoi ?", "Saturday afternoon, no, I'm working. But Saturday evening, yes. Why?"],
+      ["B", "Tu veux aller au cinéma avec moi ? Il y a une nouvelle comédie française.", "Do you want to go to the cinema with me? There's a new French comedy."],
+      ["A", "Bonne idée ! Le film commence à quelle heure ?", "Good idea! What time does the film start?"],
+      ["B", "À huit heures et demie. On se retrouve à huit heures et quart, devant le cinéma ?", "At half past eight. Shall we meet at quarter past eight, in front of the cinema?"],
+      ["A", "D'accord ! Et après le film, on va manger une pizza ?", "OK! And after the film, shall we go and eat a pizza?"],
+      ["B", "Ah non, je ne peux pas. Je travaille tôt dimanche. Une autre fois ?", "Oh no, I can't. I'm working early on Sunday. Another time?"],
+      ["A", "Pas de problème ! Alors, à samedi, huit heures et quart, devant le cinéma.", "No problem! So, see you on Saturday, quarter past eight, in front of the cinema."],
+      ["B", "C'est ça. À samedi, Camille !", "That's right. See you on Saturday, Camille!"]
+    ],
+    keyPhrases: [
+      ["Tu es libre samedi ?", "Are you free on Saturday?"],
+      ["Tu veux aller au cinéma ?", "Do you want to go to the cinema?"],
+      ["Avec plaisir ! / Bonne idée !", "With pleasure! / Good idea!"],
+      ["Je ne peux pas, je travaille.", "I can't, I'm working."],
+      ["Une autre fois ?", "Another time?"],
+      ["On se retrouve où ? — Devant le cinéma.", "Where shall we meet? — In front of the cinema."],
+      ["On se retrouve à quelle heure ?", "What time shall we meet?"],
+      ["à huit heures et quart / et demie", "at quarter past / half past eight"],
+      ["À samedi !", "See you on Saturday!"]
+    ],
+    practice: [
+      { prompt: "Ask your friend if they are free on Sunday.", answer: "Tu es libre dimanche ?", alt: ["Est-ce que tu es libre dimanche ?", "Tu es libre ce dimanche ?"] },
+      { prompt: "Invite your friend to the cinema.", answer: "Tu veux aller au cinéma ?", alt: ["Tu veux aller au cinéma avec moi ?", "On va au cinéma ?"] },
+      { prompt: "Accept an invitation enthusiastically.", answer: "Oui, avec plaisir !", alt: ["Bonne idée !", "Oui, super !", "D'accord, avec plaisir !"] },
+      { prompt: "Refuse politely: you can't, you're working.", answer: "Je ne peux pas, je travaille.", alt: ["Non, je ne peux pas, je travaille.", "Ah non, je ne peux pas, je travaille. Une autre fois ?"] },
+      { prompt: "Suggest meeting in front of the station at seven.", answer: "On se retrouve devant la gare à sept heures ?", alt: ["Rendez-vous devant la gare à sept heures ?", "On se retrouve à sept heures devant la gare ?"] },
+      { prompt: "Ask what time the film starts.", answer: "Le film commence à quelle heure ?", alt: ["À quelle heure commence le film ?", "Le film est à quelle heure ?"] },
+      { prompt: "Say: see you on Saturday!", answer: "À samedi !", alt: ["Alors, à samedi !"] }
+    ],
+    freeTalk: "Call a French friend and invite them to do something this weekend (cinema, a concert, a walk, a restaurant). Agree on the day, the time and the meeting place. Then imagine they invite you for Sunday: refuse politely and suggest another time."
+  },
+  {
+    id: "s-phone",
+    title: "Booking an appointment by phone",
+    icon: "📞",
+    goal: "Book a haircut by phone: choose a day and time, spell your name and give your phone number.",
+    roles: { A: "Le coiffeur (hairdresser)", B: "Vous (you)" },
+    dialogue: [
+      ["A", "Salon Coupe et Style, bonjour !", "Coupe et Style salon, hello!"],
+      ["B", "Bonjour. Je voudrais prendre rendez-vous pour une coupe, s'il vous plaît.", "Hello. I'd like to make an appointment for a haircut, please."],
+      ["A", "Oui, pour quel jour ?", "Yes, for which day?"],
+      ["B", "Mardi matin, c'est possible ?", "Is Tuesday morning possible?"],
+      ["A", "Désolé, mardi, c'est complet. Mercredi à dix heures ou jeudi à seize heures trente ?", "Sorry, Tuesday is fully booked. Wednesday at ten or Thursday at four thirty p.m.?"],
+      ["B", "Jeudi à seize heures trente, c'est parfait.", "Thursday at four thirty p.m. is perfect."],
+      ["A", "C'est à quel nom ?", "What name is it?"],
+      ["B", "Desai. Ça s'écrit D, E, S, A, I.", "Desai. It's spelled D, E, S, A, I."],
+      ["A", "Merci. Et votre numéro de téléphone, s'il vous plaît ?", "Thank you. And your phone number, please?"],
+      ["B", "C'est le 06 12 45 78 90.", "It's 06 12 45 78 90."],
+      ["A", "C'est noté : jeudi à seize heures trente.", "That's booked: Thursday at four thirty p.m."],
+      ["B", "Merci. C'est combien, une coupe ?", "Thank you. How much is a haircut?"],
+      ["A", "Vingt-huit euros. À jeudi !", "Twenty-eight euros. See you on Thursday!"],
+      ["B", "À jeudi. Au revoir !", "See you on Thursday. Goodbye!"]
+    ],
+    keyPhrases: [
+      ["Je voudrais prendre rendez-vous.", "I'd like to make an appointment."],
+      ["Mardi matin, c'est possible ?", "Is Tuesday morning possible?"],
+      ["C'est complet.", "It's fully booked."],
+      ["C'est à quel nom ?", "What name is it under?"],
+      ["Ça s'écrit D, E, S, A, I.", "It's spelled D, E, S, A, I."],
+      ["zéro six, douze, quarante-cinq, soixante-dix-huit, quatre-vingt-dix", "06 12 45 78 90 (phone numbers are said in pairs)"],
+      ["jeudi à seize heures trente", "Thursday at 4.30 p.m."],
+      ["Vous pouvez répéter plus lentement, s'il vous plaît ?", "Can you repeat more slowly, please?"]
+    ],
+    practice: [
+      { prompt: "Say you'd like to make an appointment for Friday.", answer: "Je voudrais prendre rendez-vous pour vendredi.", alt: ["Je voudrais un rendez-vous vendredi, s'il vous plaît.", "Je voudrais prendre rendez-vous vendredi."] },
+      { prompt: "Ask if Monday morning is possible.", answer: "Lundi matin, c'est possible ?", alt: ["Est-ce que c'est possible lundi matin ?", "C'est possible lundi matin ?"] },
+      { prompt: "Spell the name Iyer.", answer: "Ça s'écrit I, Y, E, R.", alt: ["I, Y, E, R."] },
+      { prompt: "Give the phone number 06 23 45 67 89.", answer: "C'est le 06 23 45 67 89.", alt: ["06 23 45 67 89.", "Mon numéro, c'est le 06 23 45 67 89."] },
+      { prompt: "Accept the time offered: Wednesday at ten is perfect.", answer: "Mercredi à dix heures, c'est parfait.", alt: ["Mercredi à 10 heures, c'est parfait.", "Mercredi à dix heures, c'est très bien."] },
+      { prompt: "Ask the person to repeat more slowly.", answer: "Vous pouvez répéter plus lentement, s'il vous plaît ?", alt: ["Pouvez-vous répéter plus lentement, s'il vous plaît ?", "Plus lentement, s'il vous plaît."] }
+    ],
+    freeTalk: "Phone a medical centre to book an appointment with a doctor. Say what you want, suggest a day, accept or refuse the times offered, spell your surname and give your phone number in pairs of digits. Finish by repeating the day and time."
+  },
+  {
+    id: "s-weekend",
+    title: "Talking about your weekend",
+    icon: "🗓️",
+    goal: "Ask and answer questions about last weekend using the past tense (passé composé).",
+    roles: { A: "Inès, une collègue (a colleague)", B: "Vous (you)" },
+    dialogue: [
+      ["A", "Salut ! Tu as passé un bon week-end ?", "Hi! Did you have a good weekend?"],
+      ["B", "Oui, super, merci ! Et toi ?", "Yes, great, thanks! And you?"],
+      ["A", "Très bien ! Je suis allée à Deauville, à la mer. Et toi, qu'est-ce que tu as fait ?", "Very good! I went to Deauville, to the seaside. And you, what did you do?"],
+      ["B", "Samedi, j'ai joué au cricket avec des amis.", "On Saturday, I played cricket with some friends."],
+      ["A", "Au cricket ? En France ? C'est rare !", "Cricket? In France? That's unusual!"],
+      ["B", "Oui, il y a un club près de chez moi. Et le soir, on a mangé dans un restaurant indien.", "Yes, there's a club near my place. And in the evening, we ate in an Indian restaurant."],
+      ["A", "Et dimanche ?", "And on Sunday?"],
+      ["B", "Dimanche, j'ai visité le musée d'Orsay.", "On Sunday, I visited the Musée d'Orsay."],
+      ["A", "Ah, c'est beau ! Tu as aimé ?", "Oh, it's beautiful! Did you like it?"],
+      ["B", "Oui, j'ai adoré les tableaux de Monet. Et toi, qu'est-ce que tu as fait à Deauville ?", "Yes, I loved the Monet paintings. And you, what did you do in Deauville?"],
+      ["A", "On a marché sur la plage et on a mangé des crêpes. Mais dimanche, il a plu !", "We walked on the beach and ate crêpes. But on Sunday, it rained!"],
+      ["B", "Dommage ! Ici, il a fait beau tout le week-end.", "What a shame! Here, the weather was nice all weekend."],
+      ["A", "Bon, au travail ! Bonne semaine !", "Right, back to work! Have a good week!"],
+      ["B", "Merci, toi aussi !", "Thanks, you too!"]
+    ],
+    keyPhrases: [
+      ["Tu as passé un bon week-end ?", "Did you have a good weekend?"],
+      ["Qu'est-ce que tu as fait ?", "What did you do?"],
+      ["J'ai joué au cricket.", "I played cricket."],
+      ["J'ai visité un musée.", "I visited a museum."],
+      ["Je suis allé / allée au cinéma.", "I went to the cinema. (m./f., same sound)"],
+      ["Je suis resté / restée à la maison.", "I stayed at home. (m./f., same sound)"],
+      ["On a mangé au restaurant.", "We ate at a restaurant."],
+      ["Il a fait beau. / Il a plu.", "The weather was nice. / It rained."],
+      ["J'ai adoré !", "I loved it!"]
+    ],
+    practice: [
+      { prompt: "Ask a friend if they had a good weekend.", answer: "Tu as passé un bon week-end ?", alt: ["C'était bien, ton week-end ?", "Ça s'est bien passé, ton week-end ?"] },
+      { prompt: "Ask what they did.", answer: "Qu'est-ce que tu as fait ?", alt: ["Tu as fait quoi ?", "Qu'est-ce que tu as fait ce week-end ?"] },
+      { prompt: "Say you went to the cinema on Saturday.", answer: "Samedi, je suis allé au cinéma.", alt: ["Samedi, je suis allée au cinéma.", "Je suis allé au cinéma samedi.", "Je suis allée au cinéma samedi."] },
+      { prompt: "Say you stayed at home on Sunday.", answer: "Dimanche, je suis resté à la maison.", alt: ["Dimanche, je suis restée à la maison.", "Je suis resté à la maison dimanche.", "Je suis restée à la maison dimanche."] },
+      { prompt: "Say you watched a cricket match on TV.", answer: "J'ai regardé un match de cricket à la télé.", alt: ["J'ai regardé un match de cricket à la télévision."] },
+      { prompt: "Say you ate in an Indian restaurant with friends.", answer: "J'ai mangé dans un restaurant indien avec des amis.", alt: ["J'ai mangé au restaurant indien avec des amis.", "On a mangé dans un restaurant indien avec des amis."] },
+      { prompt: "Say the weather was nice.", answer: "Il a fait beau.", alt: ["Il a fait très beau."] },
+      { prompt: "Say you visited a museum and loved it.", answer: "J'ai visité un musée. J'ai adoré !", alt: ["J'ai visité un musée et j'ai adoré.", "J'ai visité un musée, j'ai adoré !"] }
+    ],
+    freeTalk: "It's Monday morning at work and a French colleague asks about your weekend. Say at least four things you did on Saturday and Sunday in the past tense (j'ai + verb, je suis allé / allée…), say what the weather was like, then ask your colleague two questions about their weekend."
   }
-  /*NEXT*/
 ]);
