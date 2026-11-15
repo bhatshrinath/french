@@ -218,3 +218,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ---------------------------------------------------------------
+# Personal textbook PDFs: copyrighted, keep them LOCAL ONLY.
+# The repo is public, so never commit them. The app links to them
+# when you open index.html straight from this folder.
+# ---------------------------------------------------------------
+A1/
+*.pdf
+*.epub
