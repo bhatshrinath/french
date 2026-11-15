@@ -1,5 +1,5 @@
 /* Offline support: network first (so updates show up), cache as fallback. */
-var CACHE = 'french-a1-v1';
+var CACHE = 'french-a1-v2';
 var CORE = ['./', 'index.html', 'manifest.webmanifest', 'assets/icon.svg', 'assets/css/app.css',
   'assets/js/registry.js', 'assets/js/util.js', 'assets/js/store.js', 'assets/js/speech.js', 'assets/js/fr.js',
   'assets/js/tasks.js', 'assets/js/render.js', 'assets/js/quiz.js', 'assets/js/srs.js', 'assets/js/drills.js',

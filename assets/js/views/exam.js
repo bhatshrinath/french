@@ -117,10 +117,15 @@
             part.appendChild(h('label.form-row', h('span', { text: f.label }), inp));
             return { f: f, inp: inp };
           });
+          var formChecks = h('ul.checklist', { hidden: true }, inputs.map(function (x2) {
+            return h('li', h('label', h('input', { type: 'checkbox' }), ' ' + x2.f.label + ': my answer is complete and appropriate.'));
+          }));
+          part.appendChild(formChecks);
           pts.push(function () {
-            var filled = inputs.filter(function (x2) { return x2.inp.value.trim(); }).length;
             inputs.forEach(function (x2) { if (x2.f.example) x2.inp.insertAdjacentElement('afterend', h('small.muted', { text: ' e.g. ' + x2.f.example })); x2.inp.disabled = true; });
-            return filled / inputs.length * 10;
+            U.$$('input', formChecks).forEach(function (cb, i) { cb.disabled = !inputs[i].inp.value.trim(); });
+            formChecks.hidden = false;
+            return { lazy: function () { return U.$$('input:checked', formChecks).length / Math.max(1, inputs.length) * 10; } };
           });
         } else {
           part.appendChild(h('div.prompt', h('p.fr.strong', { 'data-say': p.prompt, text: p.prompt }), p.promptEn ? h('p.muted', { text: p.promptEn }) : null));
@@ -144,7 +149,7 @@
         var fixed = 0, lazies = [];
         pts.forEach(function (fn) { var r2 = fn(); if (typeof r2 === 'number') fixed += r2; else lazies.push(r2.lazy); });
         submit.remove();
-        box.appendChild(h('p.muted', { text: 'Tick the checklist honestly for your text, then save your score.' }));
+        box.appendChild(h('p.muted', { text: 'Tick both checklists honestly, then save your score.' }));
         box.appendChild(h('div.row', h('button.btn.primary', { type: 'button', text: 'Save my writing score', onclick: function () {
           var sc = Math.round((fixed + U.sum(lazies, function (f) { return f(); })) * 2) / 2;
           st.scores.writing = Math.min(25, sc);
