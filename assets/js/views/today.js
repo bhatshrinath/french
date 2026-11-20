@@ -51,12 +51,14 @@
     var d = A1.plan.days[n - 1];
     function draw() {
       root.innerHTML = '';
-      var date = T.dateOf(n), st = T.dayStats(n), tasks = T.tasks(n);
-      var isToday = U.dateKey(date) === U.todayKey();
+      var st = T.dayStats(n), tasks = T.tasks(n), tk = U.todayKey();
+      var isToday = T.todayDays().indexOf(n) > -1;
+      var dates = T.datesOf(n), later = dates.filter(function (x) { return U.dateKey(x) !== tk; });
+      var when = dates.map(function (x) { return U.dateKey(x) === tk ? 'today' : U.fmtDate(x); }).join(' + ');
       var head = h('div.day-head',
         h('div.day-meta',
           h('span.pill' + (isToday ? '.accent' : ''), { text: isToday ? 'Today · Day ' + n : 'Day ' + n }),
-          h('span.muted', { text: U.fmtDate(date) }),
+          h('span.muted', { text: when ? 'Scheduled ' + when : st.complete ? 'Done' : '' }),
           d.unit != null ? h('span.pill', { text: 'NLF Unité ' + d.unit }) : null,
           st.complete ? h('span.pill.ok', { text: '✓ Complete' }) : null),
         h('h2.day-title', { text: d.title }),
@@ -65,10 +67,16 @@
           ' · ' + st.coreDone + '/' + st.core + ' done' }),
         h('div', { html: R.progressBar(st.pct) }));
       root.appendChild(head);
-      var core = tasks.filter(function (t) { return t.core; }), bonus = tasks.filter(function (t) { return !t.core; });
+      var only = opts.only || null;
+      var core = tasks.filter(function (t) { return t.core && (!only || only.indexOf(t.id) > -1); }), bonus = tasks.filter(function (t) { return !t.core; });
+      if (only && core.length < st.core) {
+        var part = U.sum(core, function (t) { return T.isDone(t) ? 0 : t.minutes; });
+        root.appendChild(h('div.callout.note.small', { text: 'Today’s part of this plan day: ' + core.length + ' of ' + st.core + ' core tasks (≈ ' + U.fmtMin(part) + ' left).' + (later.length ? ' The rest is planned for ' + later.map(U.fmtDate).join(', ') + '.' : '') }));
+      }
       var ul = h('ul.tasks');
       core.forEach(function (t) { ul.appendChild(taskRow(t, draw)); });
       root.appendChild(ul);
+      if (only && core.length < st.core) root.appendChild(h('a.small', { href: '#/day/' + n, text: 'See all of Day ' + n + ' →' }));
       if (bonus.length) {
         var bul = h('ul.tasks');
         bonus.forEach(function (t) { bul.appendChild(taskRow(t, draw)); });
@@ -89,39 +97,48 @@
   };
 
   V.today = function (root) {
-    var st = T.status(), o = T.overall(), n = T.todayN(), now = new Date();
+    var st = T.status(), o = T.overall(), now = new Date();
     var frDate = 'Aujourd\'hui, nous sommes ' + F.fullDate(now) + '.';
     var hero = h('section.hero',
       h('div.hero-text',
         h('h1', { text: greeting() }),
         h('p.fr.hero-date', { 'data-say': frDate, tabindex: '0', role: 'button', title: 'Tap to listen', text: '🔊 ' + frDate }),
-        h('p.muted', { text: statusLine(st, n) })),
+        h('p.muted', { text: statusLine(st) })),
       h('div.hero-ring', { html: R.ring(o.pct, 112, 'Course ' + o.pct + '% complete') + '<div class="muted small center">of the plan</div>' }));
     root.appendChild(hero);
 
     var due = A1.SRS.totals().due, streak = S.streak();
     root.appendChild(h('div.stats-row',
       stat('🔥', streak + (streak === 1 ? ' day' : ' days'), 'streak'),
-      stat('✅', o.daysComplete + ' / ' + T.total(), 'days complete'),
+      stat('✅', o.daysComplete + ' / ' + T.total(), 'plan days done'),
       stat('🃏', String(due), due === 1 ? 'card due' : 'cards due', due ? '#/cards/*' : null),
-      stat('⏳', String(Math.max(0, st.daysLeft)), 'days left')));
+      stat('⏳', String(st.daysLeft), 'days to ' + U.fmtShort(T.endDate()))));
 
-    if (st.behind.length && !st.notStarted) {
-      var first = st.behind[0];
-      root.appendChild(h('div.callout.warn',
-        h('b', { text: '⏰ Catch up: ' + U.plural(st.behind.length, 'earlier day') + ' still open' }),
-        h('div', { text: 'Finish Day ' + first + ' first (' + T.dayStats(first).coreDone + '/' + T.dayStats(first).core + ' done). To finish by ' + U.fmtShort(T.endDate()) + ' you need about ' + U.fmtMin(st.pacePerDay) + ' a day from now on.' }),
-        h('div.row', h('a.btn.small.primary', { href: '#/day/' + first, text: 'Go to Day ' + first }))));
-    }
-    if (st.notStarted) {
-      root.appendChild(h('div.callout.note', h('b', { text: 'Your plan starts on ' + U.fmtDate(T.start()) }), h('div', { text: 'You can preview Day 1 below, or change the start date in Settings.' })));
-    }
-    if (st.finished && o.pct >= 99) {
+    if (st.allDone) {
       root.appendChild(h('div.callout.ok', h('b', { text: '🏆 Plan complete — félicitations !' }), h('div', { text: 'Book your DELF A1 and continue with NLF\'s Road to A2. Keep your flashcards going: 10 minutes a day.' })));
+    } else if (st.heavy) {
+      root.appendChild(h('div.callout.warn', h('b', { text: '⏰ The plan is tight' }),
+        h('div', { text: 'To finish by ' + U.fmtDate(T.endDate()) + ' you need about ' + U.fmtMin(st.perWeekday) + ' on weekdays and ' + U.fmtMin(st.perWeekend) + ' on weekend days. Watch videos at 1.25× and skip the bonus items — or move the end date in Settings.' })));
     }
-    var dayBox = h('section.card.day');
-    root.appendChild(dayBox);
-    V.renderDay(dayBox, n);
+    if (!st.allDone) {
+      if (!st.today.length) {
+        root.appendChild(h('div.callout.note', h('b', { text: '😌 Nothing scheduled today' }), h('div', { text: 'A lighter day. Review your flashcards — or get ahead with Day ' + T.nextDay() + '.' })));
+      } else if (st.todayDone) {
+        root.appendChild(h('div.callout.ok', h('b', { text: '🎉 Today\'s plan is done — bravo !' }),
+          h('div', { text: 'Want to get ahead? Every extra bit lightens the days to come.' }),
+          T.nextDay() <= T.total() ? h('div.row', h('a.btn.small.primary', { href: '#/day/' + T.nextDay(), text: 'Start Day ' + T.nextDay() })) : null));
+      }
+      st.today.forEach(function (n) {
+        var dayBox = h('section.card.day');
+        root.appendChild(dayBox);
+        V.renderDay(dayBox, n, { nav: st.today.length === 1, only: T.todayTasks() });
+      });
+      if (!st.today.length && T.nextDay() <= T.total()) {
+        var nb = h('section.card.day');
+        root.appendChild(nb);
+        V.renderDay(nb, T.nextDay());
+      }
+    }
 
     root.appendChild(h('section.quick',
       h('h3', { text: 'Quick practice' }),
@@ -141,13 +158,19 @@
     var hr = new Date().getHours();
     return hr < 5 ? 'Bonne nuit 🌙' : hr < 12 ? 'Bonjour ! ☀️' : hr < 18 ? 'Bon après-midi ! 👋' : 'Bonsoir ! 🌆';
   }
-  function statusLine(st, n) {
-    if (st.notStarted) return 'Your 47-day plan starts in ' + U.plural(1 - st.cal, 'day') + '.';
-    if (st.finished) return 'The 47-day plan is over — keep reviewing!';
-    var s = 'Day ' + n + ' of ' + T.total() + ' · ' + U.plural(st.daysLeft - 1, 'day') + ' after today until ' + U.fmtShort(T.endDate()) + '. ';
-    if (!st.behind.length) s += st.ahead > 0 ? 'You are ' + U.plural(st.ahead, 'day') + ' ahead. 🚀' : 'You are on track. 👍';
-    else s += 'You are ' + U.plural(st.behind.length, 'day') + ' behind.';
-    return s;
+  function statusLine(st) {
+    if (st.allDone) return 'All 47 plan days done — keep reviewing!';
+    if (st.overdue) return 'The end date has passed — everything left is due today. Move the end date in Settings if you need more time.';
+    var td = st.today.length ? 'Today: Day ' + st.today.join(' + ') + ' (≈ ' + U.fmtMin(st.todayMin) + ' left). ' : '';
+    return td + U.plural(st.daysLeft, 'day') + ' to ' + U.fmtShort(T.endDate()) + ' · pace ≈ ' + U.fmtMin(st.perWeekday) + ' on weekdays, ' + U.fmtMin(st.perWeekend) + ' on weekends.';
+  }
+  function planRow(n, extraCls) {
+    var d = A1.plan.days[n - 1], s = T.dayStats(n);
+    var cls = 'plan-day' + (s.complete ? '.complete' : '') + (extraCls || '');
+    return h('li', h('a.' + cls, { href: '#/day/' + n },
+      h('div.pd-date', h('b', { text: 'Day ' + n }), d.unit != null ? h('span.muted', { text: 'Unité ' + d.unit }) : null),
+      h('div.pd-main', h('div.pd-title', { text: d.title }), h('div', { html: R.progressBar(s.pct, 'thin') })),
+      h('div.pd-side.muted', { text: s.complete ? '✓' : s.coreDone + '/' + s.core + ' · ' + U.fmtMin(T.remaining(n)) })));
   }
 
   V.day = function (root, params) {
@@ -158,26 +181,32 @@
   };
 
   V.plan = function (root) {
-    var o = T.overall(), today = T.todayN(), st = T.status();
-    root.appendChild(h('div.page-head', h('h1', { text: 'Your 47-day plan' }),
-      h('p.muted', { text: U.fmtDate(T.start(), true) + ' → ' + U.fmtDate(T.endDate(), true) + ' · ' + o.coreDone + '/' + o.core + ' core tasks done (' + o.pct + '%) · ' + U.fmtMin(o.minCore - o.minDone) + ' of core work left' })));
-    root.appendChild(h('div.callout.note', h('div', { html: 'Built on <b>NLF Academy\'s "Road to A1"</b> course (156 videos). Every day pairs the NLF videos with a short in-app lesson, flashcards and speaking or listening practice. <b>Weekdays ≈ 2 h, weekends ≈ 3 h</b> (≈ 20% less if you watch the videos at 1.25×). Bonus items (Cosmopolite, extra NLF exercises) are optional.' })));
-    var weeks = Math.ceil(T.total() / 7);
-    for (var w = 0; w < weeks; w++) {
-      var from = w * 7 + 1, to = Math.min(T.total(), from + 6);
-      var sec = h('section.week');
-      sec.appendChild(h('h3', { text: 'Week ' + (w + 1) + ' · ' + U.fmtShort(T.dateOf(from)) + ' – ' + U.fmtShort(T.dateOf(to)) }));
-      var ul = h('ul.plan-days');
-      for (var n = from; n <= to; n++) {
-        var d = A1.plan.days[n - 1], s = T.dayStats(n), date = T.dateOf(n);
-        var cls = 'plan-day' + (n === today ? ' today' : '') + (s.complete ? ' complete' : '') + (n < st.cal && !s.complete ? ' late' : '');
-        ul.appendChild(h('li', h('a.' + cls.replace(/ /g, '.'), { href: '#/day/' + n },
-          h('div.pd-date', h('b', { text: 'D' + n }), h('span.muted', { text: U.weekday(date) + ' ' + U.fmtShort(date) })),
-          h('div.pd-main', h('div.pd-title', { text: d.title }), h('div', { html: R.progressBar(s.pct, 'thin') })),
-          h('div.pd-side.muted', { text: s.complete ? '✓' : s.coreDone + '/' + s.core + ' · ' + U.fmtMin(s.minCore) }))));
-      }
-      sec.appendChild(ul);
-      root.appendChild(sec);
+    var o = T.overall(), st = T.status(), sc = T.schedule(), tk = U.todayKey();
+    root.appendChild(h('div.page-head', h('h1', { text: 'Your plan → ' + U.fmtDate(T.endDate()) }),
+      h('p.muted', { text: o.coreDone + '/' + o.core + ' core tasks done (' + o.pct + '%) · ' + U.fmtMin(st.minLeft) + ' of core work left · ' + U.plural(st.daysLeft, 'day') + ' to go' })));
+    root.appendChild(h('div.callout.note',
+      h('div', { html: 'The plan <b>adapts every day</b>: whatever is left is spread from today to <b>' + U.fmtDate(T.endDate(), true) + '</b>, with <b>' + T.weekendWeight() + '× more on Saturdays and Sundays</b>. Right now: about <b>' + U.fmtMin(st.perWeekday) + ' per weekday</b> and <b>' + U.fmtMin(st.perWeekend) + ' per weekend day</b>. Miss a day and the rest re-balances; get ahead and the days get lighter. Built on NLF Academy\'s "Road to A1" (156 videos); bonus items are optional.' }),
+      h('div.row', h('a.btn.small', { href: '#/settings', text: '⚙️ End date & weekend load' }), h('button.btn.small.ghost', { type: 'button', text: '↻ Re-plan today', onclick: function () { T.replan(); A1.App.render(); U.toast('Re-planned from today'); } }))));
+    var done = [];
+    for (var n = 1; n <= T.total(); n++) if (T.dayStats(n).complete) done.push(n);
+    if (done.length) {
+      root.appendChild(h('details.card', h('summary', { text: '✓ Completed: ' + U.plural(done.length, 'plan day') }), h('ul.plan-days', done.map(function (x) { return planRow(x); }))));
     }
+    var sec = null, lastWeek = null;
+    sc.dates.forEach(function (dt) {
+      var key = U.dateKey(dt), days = sc.byDate[key] || [];
+      var mon = U.addDays(dt, -((dt.getDay() + 6) % 7)), wk = U.dateKey(mon);
+      if (wk !== lastWeek) {
+        lastWeek = wk;
+        sec = h('section.week', h('h3', { text: 'Week of ' + U.fmtShort(mon) }), h('ul.plan-dates'));
+        root.appendChild(sec);
+      }
+      var isToday = key === tk, wkend = dt.getDay() === 0 || dt.getDay() === 6;
+      var load = U.sum((sc.byDateTasks[key] || []).map(T.byId).filter(Boolean), function (t) { return T.isDone(t) ? 0 : t.minutes; });
+      U.$('.plan-dates', sec).appendChild(h('li.plan-date' + (isToday ? '.today' : ''),
+        h('div.pdt-h', h('b', { text: (isToday ? 'Today · ' : '') + U.fmtDate(dt) }), wkend ? h('span.pill.accent', { text: 'weekend' }) : null,
+          h('span.muted.small', { text: days.length ? '≈ ' + U.fmtMin(load) : 'free · catch-up / flashcards' })),
+        days.length ? h('ul.plan-days', days.map(function (x) { return planRow(x, isToday ? '.today' : ''); })) : null));
+    });
   };
 })();

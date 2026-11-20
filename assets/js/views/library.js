@@ -139,15 +139,22 @@
     root.appendChild(h('div.page-head', h('h1', { text: 'Settings' })));
     var box = h('section.card');
     root.appendChild(box);
-    /* plan dates */
-    var sd = h('input.field', { type: 'date', value: S.state.startDate, 'aria-label': 'Plan start date' });
-    var endInfo = h('span.muted.small');
-    function updEnd() { endInfo.textContent = 'Plan ends on ' + U.fmtDate(T.endDate(), true) + ' (47 days).'; }
-    sd.addEventListener('change', function () { if (/^\d{4}-\d{2}-\d{2}$/.test(sd.value)) { S.state.startDate = sd.value; S.save(); T.invalidate(); updEnd(); U.toast('Start date saved'); } });
-    updEnd();
-    box.appendChild(h('h2', { text: '📅 Plan' }));
-    box.appendChild(h('label.form-row', h('span', { text: 'Start date (Day 1)' }), sd));
-    box.appendChild(endInfo);
+    /* adaptive plan */
+    var ed = h('input.field', { type: 'date', value: S.get('endDate') || A1.plan.end, 'aria-label': 'Plan end date' });
+    var ww = h('select.select', { 'aria-label': 'Weekend load' });
+    [[1, 'Same as weekdays (1×)'], [1.5, '1.5× weekdays'], [2, '2× weekdays (default)'], [2.5, '2.5× weekdays'], [3, '3× weekdays']].forEach(function (x) { ww.appendChild(h('option', { value: x[0], text: x[1] })); });
+    ww.value = String(T.weekendWeight());
+    var paceInfo = h('p.muted.small');
+    function updPace() { T.invalidate(); var st = T.status(); paceInfo.textContent = 'Right now: ' + U.plural(st.daysLeft, 'day') + ' left · ≈ ' + U.fmtMin(st.perWeekday) + ' per weekday, ≈ ' + U.fmtMin(st.perWeekend) + ' per weekend day.'; }
+    ed.addEventListener('change', function () { if (/^\d{4}-\d{2}-\d{2}$/.test(ed.value)) { S.set('endDate', ed.value); T.replan(); updPace(); U.toast('End date saved — plan re-balanced'); } });
+    ww.addEventListener('change', function () { S.set('weekendWeight', parseFloat(ww.value)); T.replan(); updPace(); U.toast('Weekend load saved — plan re-balanced'); });
+    box.appendChild(h('h2', { text: '📅 Plan (adapts every day)' }));
+    box.appendChild(h('p.muted.small', { text: 'Every day, whatever is left of the 47 plan days is spread from today to your end date. Weekends get more. Today’s list stays fixed for the day; future days re-balance as you go.' }));
+    box.appendChild(h('label.form-row', h('span', { text: 'Finish by (end date)' }), ed));
+    box.appendChild(h('label.form-row', h('span', { text: 'Weekend load' }), ww));
+    box.appendChild(paceInfo);
+    box.appendChild(h('div.row', h('button.btn.small', { type: 'button', text: '↻ Re-plan today now', onclick: function () { T.replan(); updPace(); U.toast('Re-planned from today'); } })));
+    updPace();
 
     /* voices */
     box.appendChild(h('h2', { text: '🔊 French voice' }));

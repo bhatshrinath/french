@@ -24,9 +24,11 @@
       exams: {},     // examId -> {at, scores:{listening, reading, writing, speaking}, total}
       cando: {},     // canDoId -> 0|1|2
       drills: {},    // drillId -> {best, last, n}
+      sched: null,   // today's frozen plan days {date, key, days}
       settings: {
         voiceF: '', voiceM: '', rate: 0.95, theme: 'auto', showSay: true,
-        newPerSession: 12, videoRate: 1, embed: true, autoplay: true
+        newPerSession: 12, videoRate: 1, embed: true, autoplay: true,
+        endDate: (A1.plan && A1.plan.end) || '2026-12-31', weekendWeight: 2
       }
     };
   }

@@ -266,7 +266,7 @@ A1.addLessons([
       { h: "Taille for clothes, pointure for shoes", table: { head: ["Question", "Answer"], rows: [
         ["[[Vous faites quelle taille ?]]", "[[Je fais du 38.]] / [[Je fais du M.]]"],
         ["[[Quelle est votre pointure ?]]", "[[Je fais du 42.]]"],
-        ["[[Vous avez ces chaussures en 39 ?]]", "[[Oui, je vais chercher.]]"]
+        ["[[Vous avez ces chaussures en 39 ?]]", "[[Oui, je vais voir.]]"]
       ] } },
       { h: "Does it fit?", examples: [
         { fr: "Il me va bien.", en: "It fits me well. (masculine item)" },
@@ -597,7 +597,7 @@ A1.addLessons([
       { h: "Put actions in a clear order", examples: [
         { fr: "D'abord, je me lève et je me douche.", en: "First, I get up and have a shower." },
         { fr: "Ensuite, je m'habille.", en: "Next, I get dressed." },
-        { fr: "Puis, je prends le petit-déjeuner.", en: "Then, I have breakfast." },
+        { fr: "Puis je prends le petit-déjeuner.", en: "Then, I have breakfast." },
         { fr: "Après, je pars au travail.", en: "After that, I leave for work." },
         { fr: "Enfin, je rentre chez moi.", en: "Finally, I go home." }
       ] },
@@ -717,7 +717,7 @@ A1.addLessons([
         ["Le pharmacien", "D'accord. Prenez une pastille trois fois par jour.", "All right. Take one lozenge three times a day."],
         ["Noor", "Merci. C'est combien ?", "Thank you. How much is it?"]
       ] },
-      { h: "Emergency numbers in France", warn: "For a serious medical emergency in France, call <b>15</b> (the SAMU medical emergency service) or <b>112</b> (the European emergency number). Call [[Au secours !]] if you need immediate help nearby. Say your location, your telephone number and what happened. Do not use these numbers for a minor problem; a pharmacy or doctor is the right first stop for ordinary symptoms." },
+      { h: "Emergency numbers in France", warn: "For a serious medical emergency in France, call <b>15</b> (the SAMU medical emergency service) or <b>112</b> (the European emergency number). Shout [[Au secours !]] (Help!) if you need immediate help nearby. Say your location, your telephone number and what happened. Do not use these numbers for a minor problem; a pharmacy or doctor is the right first stop for ordinary symptoms." },
       { tip: "Keep a short health note on your phone: [[Je suis allergique à…]], the names of medicines you take, and an emergency contact. At the pharmacy, show the pharmacist the packet or a written medicine name if pronunciation is difficult." }
     ],
     quiz: [
@@ -800,7 +800,7 @@ A1.addLessons([
         { fr: "Où est la voiture 8, s'il vous plaît ?", en: "Where is coach 8, please?" },
         { fr: "C'est une place côté fenêtre ou côté couloir ?", en: "Is it a window seat or an aisle seat?" }
       ] },
-      { h: "TGV, classes and announcements", note: "A [[TGV]] is a high-speed train. Most trains offer [[la première classe]] and [[la seconde classe]]. Your ticket may show [[la voiture]] (coach) and [[la place]] (seat). In an announcement, listen first for the destination, scheduled time, delay and track: [[Le TGV à destination de Nantes partira voie 6 avec quinze minutes de retard.]]" },
+      { h: "TGV, classes and announcements", note: "A [[TGV]] is a high-speed train. Most trains offer [[la première classe]] and [[la seconde classe]]. Your ticket may show [[la voiture]] (coach) and [[la place]] (seat). In an announcement, listen first for the destination, scheduled time, delay and track: [[Le TGV à destination de Nantes partira voie 6 avec quinze minutes de retard.]] ([[partira]] = will leave: announcements use the future tense, which you will see later.)" },
       { h: "Book a hotel room", table: { head: ["Need", "What to say"], rows: [
         ["A room", "[[Je voudrais réserver une chambre simple / double.]]"],
         ["Dates", "[[Du 10 au 12 juillet, pour deux nuits.]]"],
@@ -909,7 +909,7 @@ A1.addLessons([
         { fr: "D'accord, je peux venir.", en: "All right, I can come." },
         { fr: "Merci pour l'invitation. À samedi !", en: "Thanks for the invitation. See you Saturday!" }
       ] },
-      { h: "Refuse without sounding cold", p: "Start with thanks or an apology, give a short reason, then suggest another time: [[Merci, mais je ne peux pas samedi.]] [[Je suis désolé / désolée, je travaille.]] [[Une autre fois, avec plaisir !]] A simple refusal is enough; you do not need a long explanation." },
+      { h: "Refuse without sounding cold", p: "Start with thanks or an apology, give a short reason, then suggest another time: [[Merci, mais je ne peux pas samedi.]] [[Je suis désolé / désolée, je dois travailler.]] [[Une autre fois, avec plaisir !]] A simple refusal is enough; you do not need a long explanation." },
       { h: "Fix the details", table: { head: ["Question", "Possible answer"], rows: [
         ["[[On se retrouve quand ?]]", "[[Samedi vers dix-neuf heures.]]"],
         ["[[On se retrouve où ?]]", "[[Devant le cinéma.]]"],

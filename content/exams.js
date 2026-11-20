@@ -382,7 +382,7 @@ A1.addExams([
               { q: "Rohan arrive à Bordeaux…", qEn: "Rohan arrives in Bordeaux…", options: ["en avion.", "en train.", "en bus."], answer: 1 },
               { q: "À quelle heure arrive Rohan ?", qEn: "What time does Rohan arrive?", options: ["À 16 h 20.", "À 19 h 30.", "À 12 h 20."], answer: 0 },
               { q: "Qui va chercher Rohan à la gare ?", qEn: "Who is picking Rohan up at the station?", options: ["Nathalie.", "Le fils de Nathalie.", "Le mari de Nathalie."], answer: 2 },
-              { q: "Comment Rohan peut reconnaître Michel ?", qEn: "How can Rohan recognise Michel?", options: ["Il porte une veste rouge.", "Il a un panneau avec le nom de Rohan.", "Il attend devant le café de la gare."], answer: 0 },
+              { q: "Comment est-ce que Rohan peut reconnaître Michel ?", qEn: "How can Rohan recognise Michel?", options: ["Il porte une veste rouge.", "Il a un panneau avec le nom de Rohan.", "Il attend devant le café de la gare."], answer: 0 },
               { q: "Avant vendredi, Rohan doit…", qEn: "Before Friday, Rohan must…", options: ["acheter son billet.", "parler de ses allergies.", "réserver une chambre."], answer: 1 }
             ]
           },

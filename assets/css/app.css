@@ -196,6 +196,13 @@ details.bonus { margin: 6px 0 4px; }
 .pd-title { font-weight: 600; font-size: .95rem; }
 .pd-side { font-size: .8rem; white-space: nowrap; }
 
+.plan-dates { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.plan-date { padding: 8px 0; }
+.plan-date.today { background: var(--accent-soft); border-radius: 12px; padding: 8px; }
+.pdt-h { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px; }
+.plan-date .plan-day { grid-template-columns: 74px 1fr auto; }
+.heat-c.future { opacity: .7; outline: 1px dashed var(--border); outline-offset: -1px; }
+
 /* ---------- Learn ---------- */
 .lesson-grid { display: grid; gap: 8px; }
 .lesson-card { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: start; padding: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; text-decoration: none; color: var(--text); }

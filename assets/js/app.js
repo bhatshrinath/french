@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   var A1 = window.A1, U = A1.U, S = A1.S, T = A1.T, Sp = A1.Speech, V = A1.V, h = U.h;
-  A1.VERSION = '1.0.0';
+  A1.VERSION = '1.1.0';
   var App = A1.App = {};
 
   var ROUTES = {
@@ -49,9 +49,9 @@
     var st = T.status(), o = T.overall();
     var pill = U.$('#day-pill');
     if (!pill) return;
-    pill.textContent = st.notStarted ? 'Starts ' + U.fmtShort(T.start()) : st.finished ? 'Plan done · ' + o.pct + '%' : 'Day ' + T.todayN() + '/' + T.total() + ' · ' + o.pct + '%';
-    pill.className = 'pill top-pill' + (st.behind.length ? ' warn' : '');
-    pill.title = st.behind.length ? U.plural(st.behind.length, 'day') + ' behind schedule' : 'On track';
+    pill.textContent = st.allDone ? 'Plan done 🎉' : (st.today.length ? 'Today: Day ' + st.today.join('+') : 'Day ' + T.nextDay() + '/' + T.total()) + ' · ' + o.pct + '%';
+    pill.className = 'pill top-pill' + (st.heavy ? ' warn' : '');
+    pill.title = st.daysLeft + ' days to the end date · ≈ ' + U.fmtMin(st.perWeekday) + ' per weekday, ' + U.fmtMin(st.perWeekend) + ' per weekend day';
   }
 
   App.applyTheme = function () {

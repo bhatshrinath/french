@@ -25,21 +25,21 @@
   V.progress = function (root, params, query) {
     var o = T.overall(), st = T.status(), vp = T.videoProgress(), cards = A1.SRS.totals();
     root.appendChild(h('div.page-head', h('h1', { text: 'Progress tracker' }),
-      h('p.muted', { text: U.fmtDate(T.start(), true) + ' → ' + U.fmtDate(T.endDate(), true) + ' · goal: CEFR A1 / DELF A1' })));
+      h('p.muted', { text: 'Until ' + U.fmtDate(T.endDate(), true) + ' · goal: CEFR A1 / DELF A1' })));
 
     /* --- headline --- */
     var statusTxt, statusCls;
-    if (st.notStarted) { statusTxt = '🗓 Starts ' + U.fmtShort(T.start()); statusCls = 'note'; }
-    else if (st.behind.length) { statusTxt = '⚠ ' + U.plural(st.behind.length, 'day') + ' behind'; statusCls = 'warn'; }
-    else if (st.ahead > 0) { statusTxt = '🚀 ' + U.plural(st.ahead, 'day') + ' ahead'; statusCls = 'ok'; }
-    else { statusTxt = '✓ On track'; statusCls = 'ok'; }
+    if (st.allDone) { statusTxt = '🏆 Plan complete'; statusCls = 'ok'; }
+    else if (st.overdue) { statusTxt = '⚠ Past the end date'; statusCls = 'warn'; }
+    else if (st.heavy) { statusTxt = '⚠ Tight: ≈ ' + U.fmtMin(st.perWeekday) + ' per weekday'; statusCls = 'warn'; }
+    else { statusTxt = '✓ On track for ' + U.fmtShort(T.endDate()); statusCls = 'ok'; }
     root.appendChild(h('section.card.headline',
       h('div', { html: R.ring(o.pct, 140, 'Plan ' + o.pct + '% complete') }),
       h('div.headline-text',
         h('div.big-num', { text: o.pct + '%' }),
         h('div.muted', { text: 'of the plan\'s core tasks done (' + o.coreDone + ' / ' + o.core + ')' }),
         h('div.row', h('span.status.' + statusCls, { text: statusTxt }), h('span.pill', { text: '🔥 ' + S.streak() + '-day streak (best ' + S.bestStreak() + ')' })),
-        h('div.muted.small', { text: st.finished ? 'Plan period finished.' : 'To finish on time: ≈ ' + U.fmtMin(st.pacePerDay) + ' per day for the next ' + U.plural(st.daysLeft, 'day') + '.' }))));
+        h('div.muted.small', { text: 'Adaptive pace: ≈ ' + U.fmtMin(st.perWeekday) + ' per weekday and ' + U.fmtMin(st.perWeekend) + ' per weekend day for the next ' + U.plural(st.daysLeft, 'day') + '.' }))));
 
     /* --- tiles --- */
     var lessonsPlanned = [];
@@ -64,23 +64,26 @@
     /* --- calendar heatmap --- */
     var cal = h('section.card');
     cal.appendChild(h('h2', { text: 'Activity calendar' }));
-    cal.appendChild(h('p.muted.small', { text: 'Each square is a day of the plan. Colour = time studied that day (from ticked tasks). ✓ = that plan day is complete.' }));
+    cal.appendChild(h('p.muted.small', { text: 'Colour = time studied that day (from ticked tasks). A dot = plan days scheduled for that date (the schedule adapts every day).' }));
     var grid = h('div.heat', { role: 'grid', 'aria-label': 'Study activity per day' });
     ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].forEach(function (d) { grid.appendChild(h('div.heat-h.muted', { text: d.slice(0, 2) })); });
+    var sc = T.schedule(), tk = U.todayKey(), logKeys = Object.keys(S.state.log).sort();
     var start = T.start();
+    if (logKeys.length && U.parseKey(logKeys[0]) < start) start = U.parseKey(logKeys[0]);
+    var endD = T.endDate() < new Date() ? new Date() : T.endDate();
     for (var p = 0; p < start.getDay(); p++) grid.appendChild(h('div.heat-pad'));
     var rows = [];
-    for (var n = 1; n <= T.total(); n++) {
-      var date = T.dateOf(n), key = U.dateKey(date), lg = S.state.log[key] || {}, min = Math.round(lg.min || 0), ds = T.dayStats(n);
-      var isToday = key === U.todayKey();
-      var label = U.fmtDate(date) + ' · Day ' + n + ' · ' + (min ? U.fmtMin(min) + ' studied' : 'no study logged') + ' · plan day ' + ds.pct + '%';
-      rows.push([U.fmtDate(date), 'Day ' + n, min ? U.fmtMin(min) : '—', ds.coreDone + '/' + ds.core]);
-      grid.appendChild(h('div.heat-c.l' + level(min) + (isToday ? '.today' : '') + (ds.complete ? '.done' : ''), { role: 'gridcell', title: label, 'aria-label': label, tabindex: '0' },
-        h('span.heat-d', { text: date.getDate() }), ds.complete ? h('span.heat-ok', { text: '✓' }) : null));
+    for (var date = start; U.daysBetween(date, endD) >= 0; date = U.addDays(date, 1)) {
+      var key = U.dateKey(date), lg = S.state.log[key] || {}, min = Math.round(lg.min || 0), plan = sc.byDate[key] || [];
+      var isToday = key === tk, future = key > tk;
+      var label = U.fmtDate(date) + ' · ' + (min ? U.fmtMin(min) + ' studied' : future ? 'upcoming' : 'no study logged') + (plan.length ? ' · plan: Day ' + plan.join(', ') : '');
+      rows.push([U.fmtDate(date), plan.length ? 'Day ' + plan.join(', ') : '—', min ? U.fmtMin(min) : '—']);
+      grid.appendChild(h('div.heat-c.l' + level(min) + (isToday ? '.today' : '') + (future ? '.future' : ''), { role: 'gridcell', title: label, 'aria-label': label, tabindex: '0' },
+        h('span.heat-d', { text: date.getDate() }), plan.length ? h('span.heat-ok', { text: '•' }) : null));
     }
     cal.appendChild(grid);
     cal.appendChild(h('div.heat-legend.muted.small', 'Less ', h('span.heat-c.l0.sw'), h('span.heat-c.l1.sw'), h('span.heat-c.l2.sw'), h('span.heat-c.l3.sw'), h('span.heat-c.l4.sw'), ' More (0 · <30 · 30–60 · 60–120 · 120+ min)'));
-    var tbl = h('table.data-table', h('thead', h('tr', ['Date', 'Plan day', 'Studied', 'Core tasks'].map(function (x) { return h('th', { text: x }); }))),
+    var tbl = h('table.data-table', h('thead', h('tr', ['Date', 'Plan days', 'Studied'].map(function (x) { return h('th', { text: x }); }))),
       h('tbody', rows.map(function (r) { return h('tr', r.map(function (c) { return h('td', { text: c }); })); })));
     cal.appendChild(h('details', h('summary.small', { text: 'Show as a table' }), h('div.tbl', tbl)));
     root.appendChild(cal);
@@ -90,14 +93,14 @@
     for (var w = 0; w * 7 < T.total(); w++) {
       var a = w * 7 + 1, b = Math.min(T.total(), a + 6), c = 0, t = 0;
       for (var k = a; k <= b; k++) { var s2 = T.dayStats(k); c += s2.coreDone; t += s2.core; }
-      weeks.push({ label: 'Week ' + (w + 1) + ' (' + U.fmtShort(T.dateOf(a)) + ')', pct: U.pct(c, t), value: U.pct(c, t) + '%' });
+      weeks.push({ label: 'Days ' + a + '–' + b, pct: U.pct(c, t), value: U.pct(c, t) + '%' });
     }
     var units = Object.keys(A1.nlf.units).map(function (u) {
       var up = T.unitProgress(+u);
       return { label: 'Unité ' + u, pct: U.pct(up.done, up.total), value: up.done + '/' + up.total };
     });
     root.appendChild(h('div.two-col',
-      h('section.card', h('h2', { text: 'Plan completion by week' }), hbars(weeks)),
+      h('section.card', h('h2', { text: 'Plan completion (7 plan days per bar)' }), hbars(weeks)),
       h('section.card', h('h2', { text: 'NLF "Road to A1" by unit' }), hbars(units))));
 
     /* --- skills --- */

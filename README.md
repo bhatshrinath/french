@@ -21,7 +21,7 @@ The backbone is **NLF Academy's free "Road to A1" course** (156 videos, ~76 h) o
 | 📈 **Progress** | Completion %, schedule status, streak, activity calendar, progress by week, NLF unit and skill, quiz history, and the A1 can-do checklist |
 | 📚 **Library** | All NLF videos by unit with watched ticks, extra NLF playlists, and your books with per-chapter ticks |
 
-**Time needed:** weekdays ≈ 2 h, weekends ≈ 3 h. Each day shows its own estimate. "Bonus" items are optional.
+**Adaptive schedule:** every day the app spreads whatever is left of the 47 plan days from *today* to your end date (default **31 December**), with **2× more on weekends** (both adjustable in Settings). Today's list stays fixed for the day; miss a day and the rest re-balances, get ahead and the days get lighter. Long plan days split across two dates at natural break points. From 20 Nov that is ≈ 2 h per weekday and ≈ 4 h per weekend day (less with videos at 1.25×). "Bonus" items are optional.
 
 ## Your books (local only)
 

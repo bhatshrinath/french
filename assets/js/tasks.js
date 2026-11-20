@@ -47,14 +47,107 @@
     return encodeURI(b.file).replace(/#/g, '%23') + '#page=' + (printedPage + b.offset);
   };
 
-  /* ---------- dates ---------- */
+  /* ---------- adaptive schedule ----------
+     The 47 plan days are spread over the real calendar from TODAY to the
+     end date (default 31 Dec). Weekends carry more work (weekendWeight),
+     Christmas Day is half a day. Today's list is frozen once computed so it
+     doesn't move while you tick things off; future days re-balance live. */
   T.total = function () { return P.days.length; };
   T.start = function () { return U.parseKey(S.state.startDate || P.start); };
-  T.dateOf = function (n) { return U.addDays(T.start(), n - 1); };
-  T.endDate = function () { return T.dateOf(T.total()); };
-  /* plan day for today (can be < 1 before the start or > total after the end) */
-  T.calendarDay = function () { return U.daysBetween(T.start(), new Date()) + 1; };
-  T.todayN = function () { return U.clamp(T.calendarDay(), 1, T.total()); };
+  T.endDate = function () { return U.parseKey(S.get('endDate') || P.end); };
+  T.weekendWeight = function () { return S.get('weekendWeight') || 2; };
+  T.weight = function (d) {
+    var w = (d.getDay() === 0 || d.getDay() === 6) ? T.weekendWeight() : 1;
+    if (U.dateKey(d).slice(5) === '12-25') w *= 0.5;
+    return w;
+  };
+  T.remaining = function (n) { var s = T.dayStats(n); return s.complete ? 0 : Math.max(10, s.minCore - s.minDone); };
+
+  /* Split items (in order) over dates: dynamic programming that keeps each
+     date's load close to its weighted share. Returns an array of arrays. */
+  function partition(items, weights) {
+    var N = items.length, D = weights.length, out = weights.map(function () { return []; });
+    if (!N) return out;
+    if (D <= 1) { out[0] = items.slice(); return out.length ? out : [items.slice()]; }
+    var loads = items.map(function (t) { return t.minutes; }), pre = [0];
+    /* cutting in the middle of a plan day costs a little extra; cutting a lesson
+       video from its homework costs more */
+    var cutCost = items.map(function (t, k) {
+      if (!k || items[k - 1].day !== t.day) return 0;
+      return (t.video && t.video.kind === 'homework') ? 60 : 12;
+    });
+    cutCost.push(0);
+    loads.forEach(function (l) { pre.push(pre[pre.length - 1] + l); });
+    var unit = pre[N] / U.sum(weights), INF = 1e18, dp = [], arg = [];
+    for (var j = 0; j <= D; j++) { dp.push(new Array(N + 1).fill(INF)); arg.push(new Array(N + 1).fill(-1)); }
+    dp[0][0] = 0;
+    for (j = 1; j <= D; j++) {
+      var t = Math.max(1, weights[j - 1] * unit);
+      for (var i = 0; i <= N; i++) {
+        for (var k = i; k >= 0; k--) {
+          if (dp[j - 1][k] === INF) continue;
+          var load = pre[i] - pre[k];
+          if (load > t * 3 && k < i - 1) break;
+          var d = load - t, c = dp[j - 1][k] + d * d * (d > 0 ? 1.5 : 1) / t + (k > 0 && k < i ? cutCost[k] : 0);
+          if (c < dp[j][i]) { dp[j][i] = c; arg[j][i] = k; }
+        }
+      }
+    }
+    var e = N;
+    for (j = D; j >= 1; j--) { var s0 = arg[j][e]; if (s0 < 0) s0 = 0; out[j - 1] = items.slice(s0, e); e = s0; }
+    return out;
+  }
+
+  var sched = null;
+  function schedKey() { return [S.get('endDate') || P.end, T.weekendWeight(), T.total()].join('|'); }
+  T.schedule = function () {
+    if (sched) return sched;
+    var today = new Date(), tk = U.todayKey(), end = T.endDate();
+    var dates = [];
+    for (var d = today; U.daysBetween(d, end) >= 0; d = U.addDays(d, 1)) dates.push(d);
+    if (!dates.length) dates.push(today); /* past the end date: everything left is due today */
+    /* schedule individual core tasks (in plan order), not whole days */
+    var pending = [];
+    for (var n = 1; n <= T.total(); n++) T.tasks(n).forEach(function (t) { if (t.core && !T.isDone(t)) pending.push(t); });
+    var fr = S.state.sched;
+    if (!fr || fr.date !== tk || fr.key !== schedKey() || !Array.isArray(fr.tasks)) {
+      fr = { date: tk, key: schedKey(), tasks: (partition(pending, dates.map(T.weight))[0] || []).map(function (t) { return t.id; }) };
+      S.state.sched = fr;
+      S.saveNow();
+    }
+    var rest = pending.filter(function (t) { return fr.tasks.indexOf(t.id) < 0; });
+    var future = dates.slice(1);
+    var parts = future.length ? partition(rest, future.map(T.weight)) : [];
+    var byDate = {}, byDateTasks = {}, byDay = {};
+    function put(key, dt, list) {
+      byDateTasks[key] = (byDateTasks[key] || []).concat(list.map(function (t) { return t.id || t; }));
+      list.forEach(function (t) {
+        var dn = t.day || +/^d(\d+):/.exec(t)[1];
+        (byDate[key] = byDate[key] || []);
+        if (byDate[key].indexOf(dn) < 0) byDate[key].push(dn);
+        (byDay[dn] = byDay[dn] || []);
+        if (!byDay[dn].some(function (x) { return U.dateKey(x) === key; })) byDay[dn].push(dt);
+      });
+    }
+    byDate[tk] = []; byDateTasks[tk] = [];
+    put(tk, today, fr.tasks);
+    if (!future.length && rest.length) put(tk, today, rest);
+    future.forEach(function (dt, i) { var key = U.dateKey(dt); byDate[key] = []; byDateTasks[key] = []; put(key, dt, parts[i] || []); });
+    var todayDays = byDate[tk].slice().sort(function (a, b) { return a - b; });
+    sched = { today: todayDays, todayTasks: byDateTasks[tk], dates: dates, byDate: byDate, byDateTasks: byDateTasks, byDay: byDay };
+    return sched;
+  };
+  T.replan = function () { S.state.sched = null; sched = null; S.save(); };
+  /* first date a plan day (still) has work scheduled, or null when done */
+  T.dateOf = function (n) { var l = T.schedule().byDay[n]; return l && l.length ? l[0] : null; };
+  T.datesOf = function (n) { return T.schedule().byDay[n] || []; };
+  T.todayDays = function () { return T.schedule().today; };
+  T.todayTasks = function () { return T.schedule().todayTasks; };
+  /* the plan day to show first: today's first unfinished one, else the next unfinished day */
+  T.todayN = function () {
+    var td = T.todayDays().filter(function (n) { return !T.dayStats(n).complete; });
+    return td[0] || T.todayDays()[0] || Math.min(T.nextDay(), T.total());
+  };
 
   /* ---------- tasks ---------- */
   var cache = {};
@@ -119,7 +212,7 @@
   };
   function catLabel(c) { return { pronunciation: 'Pronunciation', grammar: 'Grammar', topic: 'Vocabulary & phrases', culture: 'Culture' }[c] || 'Lesson'; }
   T.catLabel = catLabel;
-  T.invalidate = function () { cache = {}; };
+  T.invalidate = function () { cache = {}; sched = null; };
 
   T.isDone = function (t) {
     var o = S.state.done[t.id];
@@ -139,6 +232,7 @@
     else if (t.kind === 'lesson' || t.kind === 'cando') { S.state.done[t.id] = !!val; }
     else { if (val) S.state.done[t.id] = true; else delete S.state.done[t.id]; }
     var after = T.isDone(t);
+    sched = null;
     if (after !== before) {
       S.log('tasks', after ? 1 : -1);
       S.log('min', after ? t.minutes : -t.minutes);
@@ -148,7 +242,7 @@
   /* An activity was finished outside a task (e.g. a scenario from the Practice
      tab): tick the earliest open task of that kind+ref up to today's plan day. */
   T.completeMatching = function (kind, ref) {
-    var upto = Math.max(T.todayN(), 1);
+    var upto = Math.max.apply(null, T.todayDays().concat([T.nextDay()]));
     for (var n = 1; n <= T.total(); n++) {
       var list = T.tasks(n).filter(function (t) { return t.kind === kind && String(t.ref) === String(ref) && !T.isDone(t); });
       if (list.length && n <= upto) { T.setDone(list[0], true); return list[0]; }
@@ -189,19 +283,21 @@
     for (var n = 1; n <= T.total(); n++) if (!T.dayStats(n).complete) return n;
     return T.total() + 1;
   };
-  /* schedule status relative to the calendar */
+  /* adaptive status: what's left, and how much per weekday / weekend day */
   T.status = function () {
-    var cal = T.calendarDay(), total = T.total();
-    var behind = [];
-    for (var n = 1; n < Math.min(cal, total + 1); n++) if (!T.dayStats(n).complete) behind.push(n);
-    var o = T.overall();
-    var daysLeft = Math.max(0, total - Math.max(cal, 1) + 1);
-    var minLeft = o.minCore - o.minDone;
+    var sc = T.schedule(), o = T.overall(), today = new Date(), end = T.endDate();
+    var daysLeft = Math.max(0, U.daysBetween(today, end) + 1);
+    var W = 0;
+    for (var i = 0; i < daysLeft; i++) W += T.weight(U.addDays(today, i));
+    var minLeft = o.minCore - o.minDone, unit = W ? minLeft / W : minLeft;
+    var tt = sc.todayTasks.map(T.byId).filter(Boolean);
+    var todayMin = U.sum(tt, function (t) { return T.isDone(t) ? 0 : t.minutes; });
     return {
-      cal: cal, behind: behind, notStarted: cal < 1, finished: cal > total,
-      ahead: Math.max(0, T.nextDay() - Math.max(cal, 1)),
-      daysLeft: daysLeft, minLeft: minLeft,
-      pacePerDay: daysLeft ? Math.round(minLeft / daysLeft) : minLeft
+      today: sc.today, todayMin: todayMin,
+      todayDone: tt.length > 0 && tt.every(T.isDone),
+      daysLeft: daysLeft, minLeft: minLeft, allDone: o.core > 0 && o.coreDone === o.core,
+      perWeekday: Math.round(unit), perWeekend: Math.round(unit * T.weekendWeight()),
+      overdue: daysLeft === 0 && minLeft > 0, heavy: unit > 150
     };
   };
   T.videoProgress = function () {
